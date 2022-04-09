@@ -172,12 +172,12 @@ def SUB_ZZ_Z(a, b):
 
 def MUL_ZZ_Z(a, b):
     """Произведение целых чисел. Дитятьев Иван"""
-    x = a
-    y = b
-    if (a.b and b.b) or (not a.b and not b.b):
-        return Integer(str(MUL_NN_N(Natural(str(ABS_Z_N(x))), Natural(str(ABS_Z_N(y))))))
+    x = Integer(str(a))
+    y = Integer(str(b))
+    if (x.b and y.b) or (not x.b and not y.b):
+        return TRANS_N_Z(MUL_NN_N(ABS_Z_N(x), ABS_Z_N(y)))
     else:
-        return MUL_ZM_Z(Integer(str(MUL_NN_N(Natural(str(ABS_Z_N(x))), Natural(str(ABS_Z_N(y)))))))
+        return MUL_ZM_Z(TRANS_N_Z(MUL_NN_N(ABS_Z_N(x), ABS_Z_N(y))))
 
 
 def MOD_ZZ_Z(a, b):
@@ -195,6 +195,13 @@ def MOD_ZZ_Z(a, b):
 
 
 if __name__ == '__main__':
-    z = Integer("421")
-    v = Integer("-4322")
-    print(ADD_ZZ_Z(z, v))
+    z = Integer("-4")
+    nat = Natural("6")
+    print(z, nat)
+    print(z)
+    print(POZ_Z_D(z))
+    print(ABS_Z_N(z))
+    print(MUL_ZM_Z(z))
+    print(TRANS_N_Z(nat))
+    print(TRANS_N_Z(z))
+    print(z, nat)

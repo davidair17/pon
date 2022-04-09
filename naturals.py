@@ -179,8 +179,10 @@ def ADD_1N_N(a1):
     return a
 
 
-def MUL_NN_N(a, b):
+def MUL_NN_N(a1, b1):
     """Умножение натуральных чисел. Таланков Влад"""
+    a = Natural(str(a1))
+    b = Natural(str(b1))
     if str(a) != '0' and str(b) != '0':
         a.A.reverse()
         res = Natural('0')

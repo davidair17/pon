@@ -99,33 +99,40 @@ def ADD_QQ_Q(a1, b1):
     return a
 
 
-def SUB_QQ_Q(self, other):
+def SUB_QQ_Q(a1, b1):
     """Вычитание дробей. Абдулаев Алексей"""
-    a = Rational(str(self))
-    b = Rational(str(other))
-    lcm_den = LCM_NN_N(a, b)
-    a_floor = DIV_NN_N(lcm_den, SUB_NN_N(lcm_den, MOD_NN_N(lcm_den, a.denom)))
-    b_floor = DIV_NN_N(lcm_den, SUB_NN_N(lcm_den, MOD_NN_N(lcm_den, b.denom)))
-    numerator = SUB_ZZ_Z(MUL_ZZ_Z(b.numer, Integer(a_floor)),
-                         MUL_ZZ_Z(b.numer, Integer(b_floor)))
-    a.denom = lcm_den
-    a.numer = numerator
+    a = Rational(str(a1))
+    b = Rational(str(b1))
+    LCdenom = LCM_NN_N(a.denom, b.denom)  # Общий знаменатель
+
+    # Числители чисел после приведение к общему знаменателю
+    new_a = MUL_ZZ_Z(TRANS_N_Z(DIV_NN_N(LCdenom, a.denom)), a.numer)
+    new_b = MUL_ZZ_Z(TRANS_N_Z(DIV_NN_N(LCdenom, b.denom)), b.numer)
+
+    a.numer = SUB_ZZ_Z(new_a, new_b)
+    a.denom = LCdenom
     return a
 
 
-def MUL_QQ_Q(self, other):
+def MUL_QQ_Q(a1, b1):
     """Умножение дробей. Абдулаев Алексей"""
-    a = Rational(str(self))
-    b = Rational(str(other))
-    num1 = MUL_ZZ_Z(self.numer, other.numer)
-    num2 = MUL_NN_N(self.denom, other.denom)
+    a = Rational(str(a1))
+    b = Rational(str(b1))
+    num1 = MUL_ZZ_Z(a.numer, b.numer)
+    num2 = MUL_NN_N(a.denom, b.denom)
     a.numer = num1
-    b.numer = num2
+    a.denom = num2
     return a
 
 
 if __name__ == '__main__':
     # Создание чисел:
-    a = Rational("5/8")
-    b = Rational("-3/5")
+    a = Rational("-65/32")
+    b = Rational("0/53")
     c = Rational("63/1")
+    d = Integer("54")
+    print(a, b, c, d)
+    print(INT_Q_B(a))
+    print(TRANS_Q_Z(c))
+    print(TRANS_Z_Q(d))
+    print(a, b, c, d)
