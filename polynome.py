@@ -1,4 +1,4 @@
-from rational import Rational
+from rational import *
 
 
 class Polynome:

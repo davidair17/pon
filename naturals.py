@@ -161,8 +161,9 @@ def NZER_N_B(a):
         return True
 
 
-def ADD_1N_N(a):
+def ADD_1N_N(a1):
     """Добавление 1 к натуральному числу. Айрапетов Давид"""
+    a = Natural(str(a1))
     i = 0
     a.A.reverse()
     while a.A[i] == 9 and i + 1 < a.n:
