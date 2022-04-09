@@ -68,7 +68,7 @@ class Polynome:
 
         for i in range(self.m, -1, -1):
             j = self.m - i  # Номер коэффициента
-            koeff = self.C[j]   # Вид коэффициента при выводе
+            koeff = self.C[j]  # Вид коэффициента при выводе
 
             if koeff.numer.A == [1] and koeff.denom.A == [1] and i != 0:
                 koeff = '-' if koeff.numer.b else ''
@@ -165,9 +165,23 @@ def FAC_P_Q(a):
     return q
 
 
+def NMR_P_P(poly1):
+    """Преобразование многочлена — кратные корни в простые.Николаев Клим"""
+    # Заглушка в ожидании функций
+    # Производная многочлена
+    temp = DER_P_P(poly1)
+    # НОД многочлена и его производной
+    gcf = GCF_PP_P(poly1, temp)
+    fac = FAC_P_Q(gcf)
+    # Делим многочлен на значеие НОД и возвращаем результат
+    res = DIV_PP_P(poly1, gcf)
+    res = MUL_PQ_P(res, fac)
+    return Polynome(res)
+
+
 if __name__ == '__main__':
     a = Polynome("-9/3x^4 + 15/5x^3-12/2x-8/4")
     b = Polynome("3/2 -13/7 -5/2")
-    #k = int(input())
+    # k = int(input())
     print(a)
     print(DER_P_P(a))
