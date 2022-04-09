@@ -110,7 +110,7 @@ def SUB_NN_N(a1, b1):
         D.A = ans
         D.n = b.n - k
     else:
-        D.A = '0'
+        D.A = [0]
         D.n = 1
     return D
 
@@ -122,6 +122,7 @@ def MUL_Nk_N(a, k):
     for i in range(k):
         c.append(0)
     D.A = c
+    D.n = len(c)
     return D
 
 
@@ -156,9 +157,9 @@ def ADD_NN_N(a1, b1):
 def NZER_N_B(a):
     """Проверка на ноль: если число не равно нулю, то 'да' иначе 'нет'. Айрапетов Давид"""
     if a.A[0] == 0 and a.n == 1:
-        return True
-    else:
         return False
+    else:
+        return True
 
 
 def ADD_1N_N(a):
@@ -177,7 +178,7 @@ def ADD_1N_N(a):
     return a
 
 
-def MUL_NN_NN(a, b):
+def MUL_NN_N(a, b):
     """Умножение натуральных чисел. Таланков Влад"""
     if str(a) != '0' and str(b) != '0':
         a.A.reverse()
@@ -203,15 +204,18 @@ def DIV_NN_N(a1, b1):
     """Частное от деления большего натурального числа на меньшее или равное натуральное с остатком. Угрюмов Михаил"""
     a = Natural(str(a1))
     b = Natural(str(b1))
-    temp = Natural(str(b))
-    n = Natural(str(1))
-    while COM_NN_D(a, b) == 2:
-        b = ADD_NN_N(b, temp)
+    n = Natural(str(0))
+    if COM_NN_D(a, b) == 2:
+        temp = Natural(str(a))
+        n = Natural(str(0))
+        while COM_NN_D(temp, b) != 1:
+            temp2 = DIV_NN_Dk(temp, b)
+            n = ADD_NN_N(n, temp2)
+            temp3 = MUL_NN_N(temp2, b)
+            temp = SUB_NN_N(temp, temp3)
+    elif COM_NN_D(a, b) == 0:
         n = ADD_1N_N(n)
-        if COM_NN_D(a, b) == 0:
-            return n
-        if COM_NN_D(a, b) == 1:
-            return SUB_NN_N(n, 1)
+    return n
 
 
 def SUB_NDN_N(a1, b1, D):
@@ -236,20 +240,70 @@ def MOD_NN_N(a1, b1):
     # Функция ищет остаток при помощи вычитания делимого на делитель умноженного на частное
     if Ifer == 2:
         Div = DIV_NN_N(a, b)
-        Del = MUL_NN_NN(Div, b)
+        Del = MUL_NN_N(Div, b)
         D = SUB_NN_N(Del, a)
     if Ifer == 1:
         Div = DIV_NN_N(b, a)
-        Del = MUL_NN_NN(Div, a)
+        Del = MUL_NN_N(Div, a)
         D = SUB_NN_N(Del, b)
     return D
 
 
+def GCF_NN_N(a1, b1):
+    """НОД натуральных чисел. Алгоритм Евклида делением. Багмутов Всеволод"""
+    a = Natural(str(a1))
+    b = Natural(str(b1))
+    while NZER_N_B(Natural(str(a))) == True and NZER_N_B(Natural(str(b))) == True:
+        if COM_NN_D(a, b) == 2:
+            a = MOD_NN_N(a, b)
+        else:
+            b = MOD_NN_N(a, b)
+    return ADD_NN_N(a, b)
+
+
+def DIV_NN_Dk(a1, b1):
+    a = Natural(str(a1))
+    b = Natural(str(b1))
+    arr = Natural('')
+    count = Natural(str(0))
+    k = a.n - 1
+    for i in range(b.n):
+        arr.A.append(a.A[i])
+        k = k - 1
+    arr.n = len(arr.A)
+    if COM_NN_D(arr, b) == 1:
+        arr.A.append(a.A[b.n])
+        arr.n = len(arr.A)
+    while COM_NN_D(arr, b) != 1:
+        count = ADD_1N_N(count)
+        arr = SUB_NN_N(arr, b)
+    res = MUL_Nk_N(count, k)
+    return res
+
+
+def LCM_NN_N(a1, b1):
+    """НОК натуральных чисел. Багмутов Всеволод"""
+    a = Natural(str(a1))
+    b = Natural(str(b1))
+    if COM_NN_D(a, b) == 2:
+        greatest = a
+    else:
+        greatest = b
+    mult = MUL_NN_N(a, b)
+    gcf = GCF_NN_N(a, b)
+    i = Natural('0')
+    while True:
+        if str(MUL_NN_N(i, gcf)) == str(mult):
+            break
+        else:
+            i = ADD_NN_N(i, greatest)
+    return i
+
+
 if __name__ == '__main__':
-    a = Natural('1000000')
-    b = Natural('1')
+    a = Natural('1048576')
+    b = Natural('1024')
     # Если вам нужно число без цифр длиной ноль, передайте пустую строку
     c = Natural('')
-    print(a, b)
+    print(DIV_NN_Dk(a, b))
     print(DIV_NN_N(a, b))
-    print(a, b)

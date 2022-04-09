@@ -14,7 +14,7 @@ class Integer:
 
     def __str__(self):
         """Возвращает строковое представление числа. Малых Андрей"""
-        return ('-' if self.b else '') + "".join(map(str, self.A))
+        return ('-' if (self.b and self.A != [0]) else '') + "".join(map(str, self.A))
 
 
 def ABS_Z_N(z):
@@ -116,14 +116,90 @@ def DIV_ZZ_Z(a1, b1):
     return c
 
 
+def ADD_ZZ_Z(a, b):
+    """Сложение целых чисел. Дитятьев Иван"""
+
+    if COM_NN_D(Natural(str(ABS_Z_N(a))), Natural(str(ABS_Z_N(b)))) == 2:
+
+        x = a
+        y = b
+    else:
+        x = b
+        y = a
+
+    if (x.b == 0 and y.b == 0):
+        return Integer(str(ADD_NN_N(Natural(str(x)), Natural(str(y)))))
+    elif (x.b == 1 and y.b == 1):
+        return MUL_ZM_Z(Integer(str(ADD_NN_N(Natural(str(x)[1:]), Natural(str(y)[1:])))))
+    else:
+        if (x.b == 0):
+            return Integer(str(SUB_NN_N(Natural(str(x)), Natural(str(y)[1:]))))
+        else:
+            return MUL_ZM_Z(Integer(str(SUB_NN_N(Natural(str(x)[1:]), Natural(str(y))))))
+
+
+def SUB_ZZ_Z(a, b):
+    """Разность целых чисел(a - b). Дитятьев Иван"""
+    if (COM_NN_D(Natural(str(ABS_Z_N(a))), Natural(str(ABS_Z_N(b)))) == 2):
+        x = a
+        y = b
+        o = 1
+    else:
+        x = b
+        y = a
+        o = 0
+
+    if (x.b == 1 and y.b == 1):
+        if (o):
+            return MUL_ZM_Z(Integer(str(SUB_NN_N(Natural(str(x)[1:]), Natural(str(y)[1:])))))
+        else:
+            return Integer(str(SUB_NN_N(Natural(str(x)[1:]), Natural(str(y)[1:]))))
+
+    elif (x.b == 0 and y.b == 0):
+        if (str(x) == str(y)):
+            return Integer('0')
+        if (o):
+            return Integer(str(SUB_NN_N(Natural(str(x)), Natural(str(y)))))
+        else:
+            return MUL_ZM_Z(Integer(str(SUB_NN_N(Natural(str(x)), Natural(str(y))))))
+    elif (x.b == 0):
+        if (o):
+            return Integer(str(ADD_NN_N(Natural(str(x)), Natural(str(y)[1:]))))
+        else:
+            return MUL_ZM_Z(Integer(str(ADD_NN_N(Natural(str(x)), Natural(str(y)[1:])))))
+    else:
+        if (o):
+            return MUL_ZM_Z(Integer(str(ADD_NN_N(Natural(str(x)[1:]), Natural(str(y))))))
+        else:
+            return Integer(str(ADD_NN_N(Natural(str(x)[1:]), Natural(str(y)))))
+
+
+def MUL_ZZ_Z(a, b):
+    """Произведение целых чисел. Дитятьев Иван"""
+    x = a
+    y = b
+
+    if ((a.b and b.b) or (not a.b and not b.b)):
+        return Integer(str(MUL_NN_N(Natural(str(ABS_Z_N(x))), Natural(str(ABS_Z_N(y))))))
+    else:
+        return MUL_ZM_Z(Integer(str(MUL_NN_N(Natural(str(ABS_Z_N(x))), Natural(str(ABS_Z_N(y)))))))
+
+
+def MOD_ZZ_Z(a, b):
+    """остаток, a - делимое, b - делитель. Снятков Илья"""
+    if POZ_Z_D(b) == 0:
+        print("moron")
+    else:
+        c = DIV_ZZ_Z(a, b)
+        d = MUL_ZZ_Z(b, c)
+        if (POZ_Z_D(a) == 2 and POZ_Z_D(b) == 2) or (POZ_Z_D(a) == 2 and POZ_Z_D(b) == 1):
+            r = SUB_ZZ_Z(a, d)
+        elif (POZ_Z_D(a) == 1 and POZ_Z_D(b) == 1) or (POZ_Z_D(a) == 1 and POZ_Z_D(b) == 2):
+            r = MUL_ZM_Z(SUB_ZZ_Z(a, d))
+    return r
+
+
 if __name__ == '__main__':
-    z = Integer("-4")
-    nat = Natural("6")
-    print(z, nat)
-    print(z)
-    print(POZ_Z_D(z))
-    print(ABS_Z_N(z))
-    print(MUL_ZM_Z(z))
-    print(TRANS_N_Z(nat))
-    print(str(TRANS_N_Z(z)))
-    print(z, nat)
+    z = Integer("421")
+    v = Integer("-4322")
+    print(ADD_ZZ_Z(z, v))

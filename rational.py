@@ -8,7 +8,6 @@ class Rational:
            в виде a/b, выдает рациональное число. Малых Андрей."""
         number = number.strip().split('/')
         number.append('')
-        print(number)
         self.numer = Integer(number[0])  # Числитель
         self.denom = Natural(number[1])  # Знаменатель
         if number[1] == '':
@@ -85,17 +84,18 @@ def RED_Q_Q(a1):
     r.denom = q12
 
 
-def ADD_QQ_Q(self, other):
+def ADD_QQ_Q(a1, b1):
     """Сложение дробей. Абдулаев Алексей"""
-    a = Rational(str(self))
-    b = Rational(str(other))
-    lcm_den = LCM_NN_N(a, b)
-    a_floor = DIV_NN_N(lcm_den, SUB_NN_N(lcm_den, MOD_NN_N(lcm_den, a.denom)))
-    b_floor = DIV_NN_N(lcm_den, SUB_NN_N(lcm_den, MOD_NN_N(lcm_den, b.denom)))
-    numerator = ADD_ZZ_Z(MUL_ZZ_Z(b.numer, Integer(a_floor)),
-                         MUL_ZZ_Z(b.numer, Integer(b_floor)))
-    a.denom = lcm_den
-    a.numer = numerator
+    a = Rational(str(a1))
+    b = Rational(str(b1))
+    LCdenom = LCM_NN_N(a.denom, b.denom)  # Общий знаменатель
+
+    # Числители чисел после приведение к общему знаменателю
+    new_a = MUL_ZZ_Z(TRANS_N_Z(DIV_NN_N(LCdenom, a.denom)), a.numer)
+    new_b = MUL_ZZ_Z(TRANS_N_Z(DIV_NN_N(LCdenom, b.denom)), b.numer)
+
+    a.numer = ADD_ZZ_Z(new_a, new_b)
+    a.denom = LCdenom
     return a
 
 
@@ -126,12 +126,6 @@ def MUL_QQ_Q(a1, b1):
 
 if __name__ == '__main__':
     # Создание чисел:
-    a = Rational("-65/32")
-    b = Rational("0/53")
+    a = Rational("5/8")
+    b = Rational("-3/5")
     c = Rational("63/1")
-    d = Integer("54")
-    print(a, b, c, d)
-    print(INT_Q_B(a))
-    print(TRANS_Q_Z(c))
-    print(TRANS_Z_Q(d))
-    print(a, b, c, d)

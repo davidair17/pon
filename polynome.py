@@ -1,5 +1,4 @@
-from rational import Rational
-from rational import ADD_QQ_Q, SUB_QQ_Q, MUL_QQ_Q
+from rational import *
 
 
 class Polynome:
@@ -144,5 +143,29 @@ def MUL_PQ_P(polynome, num):
     return polynome
 
 
+def FAC_P_Q(a):
+    """Вынесение из многочлена НОК знаменателей коэффициентов и НОД числителей.Максимов Матвей"""
+    a = [ABS_Z_N(i.numer) for i in a.C if str(i.numer) != '0']
+    if len(a) < 2:
+        return a[0]
+    elif len(a) == 2:
+        return (GCF_NN_N(a[0], a[1]))
+    nod = GCF_NN_N(a[0], a[1])
+    for i in range(3, len(a)):
+        nod = GCF_NN_N(nod, a[i])
+    b = [ABS_Z_N(j.denom) for j in b.C if str(j.denom) != '0']
+    if len(b) < 2:
+        return b[0]
+    elif len(b) == 2:
+        return (LCM_NN_N(b[0], b[1]))
+    nok = LCM_NN_N(b[0], b[1])
+    for j in range(3, len(a)):
+        nok = LCM_NN_N(nok, b[i])
+    q = Rational(str(Rational(str(nod))) + '/' + str(Natural(str(nok))))
+    return q
+
+
 if __name__ == '__main__':
     a = Polynome("-4/3x^4 + 7/5x^3 -13/2x -5/4")
+    b = Polynome("+4/3x^4-2x^3+5/4")
+    print(ADD_PP_P(a, b))
