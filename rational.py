@@ -1,4 +1,3 @@
-from naturals import *
 from integer import *
 
 
@@ -20,8 +19,9 @@ class Rational:
         return f'{self.numer}/{self.denom}'
 
 
-def INT_Q_B(a):
+def INT_Q_B(a1):
     """Проверка на целое. Если рациональное число является целым, то True, иначе False. Щелочкова Екатерина."""
+    a = RED_Q_Q(a1)
     if a.denom.A[0] == 1 and a.denom.n == 1:
         return True
     return False
@@ -46,9 +46,9 @@ def DIV_QQ_Q(a, b):
     if POZ_Z_D(b.number) == 2:
         b.number = TRANS_Z_N(b.number)
     elif POZ_Z_D(b.number) == 1:
-        b.number = MUN_ZM_Z(b.number)
+        b.number = MUL_ZM_Z(b.number)
         b.number = TRANS_Z_N(b.number)
-        a.number = MUN_ZM_Z(a.number)
+        a.number = MUL_ZM_Z(a.number)
     else:
         print("moron")
     a.number = MUL_ZZ_Z(a.number, b.denom)
@@ -78,10 +78,12 @@ def RED_Q_Q(a1):
     q2 = Q.denom
     qN = ABS_Z_N(q1)
     n = GCF_NN_N(qN, q2)
-    q11 = DIV_ZZ_Z(q1, n)
-    q12 = DIV_ZZ_Z(q2, n)
+    q11 = DIV_ZZ_Z(q1, TRANS_N_Z(n))
+    q12 = DIV_ZZ_Z(q2, TRANS_N_Z(n))
+    q12 = TRANS_Z_N(q12)
     r.numer = q11
     r.denom = q12
+    return r
 
 
 def ADD_QQ_Q(self, other):

@@ -64,8 +64,8 @@ def POZ_Z_D(z):
 
 def DIV_ZZ_Z(a1, b1):
     """Частное от деления целого на целое (делитель отличен от нуля).Ташимбетов Тимур"""
-    a = Natural(str(a1))
-    b = Natural(str(b1))
+    a = Integer(str(a1))
+    b = Integer(str(b1))
     if (POZ_Z_D(a) == 2) and (POZ_Z_D(b) == 2):  # если оба числа положительные
         if a > b:
             c = DIV_NN_N(a, b)
@@ -117,15 +117,12 @@ def DIV_ZZ_Z(a1, b1):
 
 def ADD_ZZ_Z(a, b):
     """Сложение целых чисел. Дитятьев Иван"""
-
     if COM_NN_D(Natural(str(ABS_Z_N(a))), Natural(str(ABS_Z_N(b)))) == 2:
-
         x = a
         y = b
     else:
         x = b
         y = a
-
     if x.b == 0 and y.b == 0:
         return Integer(str(ADD_NN_N(Natural(str(x)), Natural(str(y)))))
     elif x.b == 1 and y.b == 1:
@@ -147,13 +144,11 @@ def SUB_ZZ_Z(a, b):
         x = b
         y = a
         o = 0
-
     if x.b == 1 and y.b == 1:
         if o:
             return MUL_ZM_Z(Integer(str(SUB_NN_N(Natural(str(x)[1:]), Natural(str(y)[1:])))))
         else:
             return Integer(str(SUB_NN_N(Natural(str(x)[1:]), Natural(str(y)[1:]))))
-
     elif x.b == 0 and y.b == 0:
         if str(x) == str(y):
             return Integer('0')
