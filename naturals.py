@@ -1,4 +1,3 @@
-
 class Natural:
     def __init__(self, number):
         """Принимает строку, выдает натуральное число, Смирнов Иван"""
@@ -203,24 +202,6 @@ def MUL_NN_N(a1, b1):
         return Natural('0')
 
 
-def DIV_NN_N(a1, b1):
-    """Частное от деления большего натурального числа на меньшее или равное натуральное с остатком. Угрюмов Михаил"""
-    a = Natural(str(a1))
-    b = Natural(str(b1))
-    n = Natural(str(0))
-    if COM_NN_D(a, b) == 2:
-        temp = Natural(str(a))
-        n = Natural(str(0))
-        while COM_NN_D(temp, b) != 1:
-            temp2 = DIV_NN_Dk(temp, b)
-            n = ADD_NN_N(n, temp2)
-            temp3 = MUL_NN_N(temp2, b)
-            temp = SUB_NN_N(temp, temp3)
-    elif COM_NN_D(a, b) == 0:
-        n = ADD_1N_N(n)
-    return n
-
-
 def SUB_NDN_N(a1, b1, D):
     """Вычитание из натурального другого натурального, умноженного на цифру для случая с неотрицательным результатом. Айрапетов Давид"""
     a = Natural(str(a1))
@@ -264,7 +245,27 @@ def GCF_NN_N(a1, b1):
     return ADD_NN_N(a, b)
 
 
+def LCM_NN_N(a1, b1):
+    """НОК натуральных чисел. Багмутов Всеволод"""
+    a = Natural(str(a1))
+    b = Natural(str(b1))
+    if COM_NN_D(a, b) == 2:
+        greatest = a
+    else:
+        greatest = b
+    mult = MUL_NN_N(a, b)
+    gcf = GCF_NN_N(a, b)
+    i = Natural('0')
+    while True:
+        if str(MUL_NN_N(i, gcf)) == str(mult):
+            break
+        else:
+            i = ADD_NN_N(i, greatest)
+    return i
+
+
 def DIV_NN_Dk(a1, b1):
+    """Вычисление первой цифры деления большего натурального на меньшее, домноженное на 10^k,где k - номер позиции этой цифры. Угрюмов Михаил"""
     a = Natural(str(a1))
     b = Natural(str(b1))
     arr = Natural('')
@@ -284,23 +285,22 @@ def DIV_NN_Dk(a1, b1):
     return res
 
 
-def LCM_NN_N(a1, b1):
-    """НОК натуральных чисел. Багмутов Всеволод"""
+def DIV_NN_N(a1, b1):
+    """Частное от деления большего натурального числа на меньшее или равное натуральное с остатком. Угрюмов Михаил"""
     a = Natural(str(a1))
     b = Natural(str(b1))
+    n = Natural(str(0))
     if COM_NN_D(a, b) == 2:
-        greatest = a
-    else:
-        greatest = b
-    mult = MUL_NN_N(a, b)
-    gcf = GCF_NN_N(a, b)
-    i = Natural('0')
-    while True:
-        if str(MUL_NN_N(i, gcf)) == str(mult):
-            break
-        else:
-            i = ADD_NN_N(i, greatest)
-    return i
+        temp = Natural(str(a))
+        n = Natural(str(0))
+        while COM_NN_D(temp, b) != 1:
+            temp2 = DIV_NN_Dk(temp, b)
+            n = ADD_NN_N(n, temp2)
+            temp3 = MUL_NN_N(temp2, b)
+            temp = SUB_NN_N(temp, temp3)
+    elif COM_NN_D(a, b) == 0:
+        n = ADD_1N_N(n)
+    return n
 
 
 if __name__ == '__main__':
