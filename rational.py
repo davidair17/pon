@@ -1,5 +1,5 @@
-from naturals import Natural
-from integer import Integer
+from naturals import *
+from integer import *
 
 
 class Rational:
@@ -8,11 +8,11 @@ class Rational:
            в виде a/b, выдает рациональное число. Малых Андрей."""
         number = number.strip().split('/')
         number.append('')
+        print(number)
         self.numer = Integer(number[0])  # Числитель
         self.denom = Natural(number[1])  # Знаменатель
         if number[1] == '':
             self.denom = Natural('1')
-
 
     def __str__(self):
         """Возвращает строковое представление числа. Малых Андрей."""
@@ -56,6 +56,7 @@ def DIV_QQ_Q(a, b):
     a.denom = MUL_NN_N(a.denom, b.number)
     return a
 
+
 def MOD_ZZ_Z(a, b):
     """остаток, a - делимое, b - делитель. Снятков Илья"""
     if POZ_Z_D(b) == 0:
@@ -63,9 +64,9 @@ def MOD_ZZ_Z(a, b):
     else:
         c = DIV_ZZ_Z(a, b)
         d = MUL_ZZ_Z(b, c)
-        if (POZ_Z_D(a) == 2 and POZ_Z_D(b) == 2) or (POZ_Z_D(a) == 2 and POZ_Z_D(b) == 1):     
+        if (POZ_Z_D(a) == 2 and POZ_Z_D(b) == 2) or (POZ_Z_D(a) == 2 and POZ_Z_D(b) == 1):
             r = SUB_ZZ_Z(a, d)
-        elif POZ_Z_D(a) == 1 and POZ_Z_D(b) == 1:   
+        elif POZ_Z_D(a) == 1 and POZ_Z_D(b) == 1:
             r = MUL_ZM_Z(SUB_ZZ_Z(a, d))
     return r
 
@@ -73,45 +74,53 @@ def MOD_ZZ_Z(a, b):
 def RED_Q_Q(a1):
     """Сокращение дроби.Ташимбетов Тимур"""
     Q = Rational(str(a1))
-    r = Rational ("")
+    r = Rational("")
     q1 = Q.numer
     q2 = Q.denom
     qN = ABS_Z_N(q1)
-    n = GCF_NN_N(qN,q2)
-    q11 = DIV_ZZ_Z(q1,n)
-    q12 = DIV_ZZ_Z(q2,n)
+    n = GCF_NN_N(qN, q2)
+    q11 = DIV_ZZ_Z(q1, n)
+    q12 = DIV_ZZ_Z(q2, n)
     r.numer = q11
     r.denom = q12
+
+
 def ADD_QQ_Q(self, other):
     """Сложение дробей. Абдулаев Алексей"""
     a = Rational(str(self))
     b = Rational(str(other))
-    lcm_den = LCM_NN_N(a,b)
-    a_floor = DIV_NN_N(lcm_den,SUB_NN_N(lcm_den,MOD_NN_N(lcm_den,a.denom)))
-    b_floor = DIV_NN_N(lcm_den,SUB_NN_N(lcm_den,MOD_NN_N(lcm_den,b.denom)))
-    numerator = ADD_ZZ_Z(MUL_ZZ_Z(b.numer,Integer(a_floor)),MUL_ZZ_Z(b.numer,Integer(b_floor)))
-    a.denom=lcm_den
-    a.numer=numerator
+    lcm_den = LCM_NN_N(a, b)
+    a_floor = DIV_NN_N(lcm_den, SUB_NN_N(lcm_den, MOD_NN_N(lcm_den, a.denom)))
+    b_floor = DIV_NN_N(lcm_den, SUB_NN_N(lcm_den, MOD_NN_N(lcm_den, b.denom)))
+    numerator = ADD_ZZ_Z(MUL_ZZ_Z(b.numer, Integer(a_floor)),
+                         MUL_ZZ_Z(b.numer, Integer(b_floor)))
+    a.denom = lcm_den
+    a.numer = numerator
     return a
+
+
 def SUB_QQ_Q(self, other):
     """Вычитание дробей. Абдулаев Алексей"""
     a = Rational(str(self))
     b = Rational(str(other))
-    lcm_den = LCM_NN_N(a,b)
-    a_floor = DIV_NN_N(lcm_den,SUB_NN_N(lcm_den,MOD_NN_N(lcm_den,a.denom)))
-    b_floor = DIV_NN_N(lcm_den,SUB_NN_N(lcm_den,MOD_NN_N(lcm_den,b.denom)))
-    numerator = SUB_ZZ_Z(MUL_ZZ_Z(b.numer,Integer(a_floor)),MUL_ZZ_Z(b.numer,Integer(b_floor)))
-    a.denom=lcm_den
-    a.numer=numerator
+    lcm_den = LCM_NN_N(a, b)
+    a_floor = DIV_NN_N(lcm_den, SUB_NN_N(lcm_den, MOD_NN_N(lcm_den, a.denom)))
+    b_floor = DIV_NN_N(lcm_den, SUB_NN_N(lcm_den, MOD_NN_N(lcm_den, b.denom)))
+    numerator = SUB_ZZ_Z(MUL_ZZ_Z(b.numer, Integer(a_floor)),
+                         MUL_ZZ_Z(b.numer, Integer(b_floor)))
+    a.denom = lcm_den
+    a.numer = numerator
     return a
-def MUL_QQ_Q(self,other):
+
+
+def MUL_QQ_Q(a1, b1):
     """Умножение дробей. Абдулаев Алексей"""
-    a = Rational(str(self))
-    b = Rational(str(other))
-    num1=MUL_ZZ_Z(self.numer,other.numer)
-    num2=MUL_NN_N(self.denom,other.denom)
-    a.numer=num1
-    b.numer=num2
+    a = Rational(str(a1))
+    b = Rational(str(b1))
+    num1 = MUL_ZZ_Z(a.numer, b.numer)
+    num2 = MUL_NN_N(a.denom, b.denom)
+    a.numer = num1
+    a.denom = num2
     return a
 
 

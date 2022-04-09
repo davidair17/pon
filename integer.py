@@ -1,4 +1,4 @@
-from naturals import Natural
+from naturals import *
 
 
 class Integer:
@@ -62,7 +62,6 @@ def POZ_Z_D(z):
         return 1
 
 
-
 def DIV_ZZ_Z(a1, b1):
     """Частное от деления целого на целое (делитель отличен от нуля).Ташимбетов Тимур"""
     a = Natural(str(a1))
@@ -74,7 +73,8 @@ def DIV_ZZ_Z(a1, b1):
             c = 0
         if a == b:
             c = 1
-    if (POZ_Z_D(a) == 2) and (POZ_Z_D(b) == 1):  # если первое число положительное, а второе отрицательное
+    # если первое число положительное, а второе отрицательное
+    if (POZ_Z_D(a) == 2) and (POZ_Z_D(b) == 1):
         am = ABS_Z_N(a)
         bm = ABS_Z_N(b)
         if am < bm:
@@ -114,7 +114,6 @@ def DIV_ZZ_Z(a1, b1):
     if (POZ_Z_D(a) == 0) and (POZ_Z_D(b) == 1) or (POZ_Z_D(b) == 2):  # если первое число 0
         c = 0
     return c
-
 
 
 if __name__ == '__main__':

@@ -1,4 +1,5 @@
 from rational import Rational
+from rational import ADD_QQ_Q, SUB_QQ_Q, MUL_QQ_Q
 
 
 class Polynome:
@@ -144,11 +145,4 @@ def MUL_PQ_P(polynome, num):
 
 
 if __name__ == '__main__':
-    a = Polynome("-4/3x^4 + 7/5x^3-13/2x-5/4")
-    b = Polynome("3/2 -13/7 -5/2")
-    k = int(input())
-    print(a)
-    print(LED_P_Q(a))
-    print(DEG_P_N(a))
-    print(MUL_Pxk_P(a, k))
-    print(DER_P_P(a))
+    a = Polynome("-4/3x^4 + 7/5x^3 -13/2x -5/4")
