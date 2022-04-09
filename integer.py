@@ -64,8 +64,8 @@ def POZ_Z_D(z):
 
 def DIV_ZZ_Z(a1, b1):
     """Частное от деления целого на целое (делитель отличен от нуля).Ташимбетов Тимур"""
-    a = Natural(str(a1))
-    b = Natural(str(b1))
+    a = Integer(str(a1))
+    b = Integer(str(b1))
     if (POZ_Z_D(a) == 2) and (POZ_Z_D(b) == 2):  # если оба числа положительные
         if a > b:
             c = DIV_NN_N(a, b)
@@ -118,21 +118,19 @@ def DIV_ZZ_Z(a1, b1):
 
 def ADD_ZZ_Z(a, b):
     """Сложение целых чисел. Дитятьев Иван"""
-
     if COM_NN_D(Natural(str(ABS_Z_N(a))), Natural(str(ABS_Z_N(b)))) == 2:
-
         x = a
         y = b
     else:
         x = b
         y = a
 
-    if (x.b == 0 and y.b == 0):
+    if x.b == 0 and y.b == 0:
         return Integer(str(ADD_NN_N(Natural(str(x)), Natural(str(y)))))
-    elif (x.b == 1 and y.b == 1):
+    elif x.b == 1 and y.b == 1:
         return MUL_ZM_Z(Integer(str(ADD_NN_N(Natural(str(x)[1:]), Natural(str(y)[1:])))))
     else:
-        if (x.b == 0):
+        if x.b == 0:
             return Integer(str(SUB_NN_N(Natural(str(x)), Natural(str(y)[1:]))))
         else:
             return MUL_ZM_Z(Integer(str(SUB_NN_N(Natural(str(x)[1:]), Natural(str(y))))))
@@ -140,7 +138,7 @@ def ADD_ZZ_Z(a, b):
 
 def SUB_ZZ_Z(a, b):
     """Разность целых чисел(a - b). Дитятьев Иван"""
-    if (COM_NN_D(Natural(str(ABS_Z_N(a))), Natural(str(ABS_Z_N(b)))) == 2):
+    if COM_NN_D(Natural(str(ABS_Z_N(a))), Natural(str(ABS_Z_N(b)))) == 2:
         x = a
         y = b
         o = 1
@@ -148,27 +146,25 @@ def SUB_ZZ_Z(a, b):
         x = b
         y = a
         o = 0
-
-    if (x.b == 1 and y.b == 1):
-        if (o):
+    if x.b == 1 and y.b == 1:
+        if o:
             return MUL_ZM_Z(Integer(str(SUB_NN_N(Natural(str(x)[1:]), Natural(str(y)[1:])))))
         else:
             return Integer(str(SUB_NN_N(Natural(str(x)[1:]), Natural(str(y)[1:]))))
-
-    elif (x.b == 0 and y.b == 0):
-        if (str(x) == str(y)):
+    elif x.b == 0 and y.b == 0:
+        if str(x) == str(y):
             return Integer('0')
-        if (o):
+        if o:
             return Integer(str(SUB_NN_N(Natural(str(x)), Natural(str(y)))))
         else:
             return MUL_ZM_Z(Integer(str(SUB_NN_N(Natural(str(x)), Natural(str(y))))))
-    elif (x.b == 0):
-        if (o):
+    elif x.b == 0:
+        if o:
             return Integer(str(ADD_NN_N(Natural(str(x)), Natural(str(y)[1:]))))
         else:
             return MUL_ZM_Z(Integer(str(ADD_NN_N(Natural(str(x)), Natural(str(y)[1:])))))
     else:
-        if (o):
+        if o:
             return MUL_ZM_Z(Integer(str(ADD_NN_N(Natural(str(x)[1:]), Natural(str(y))))))
         else:
             return Integer(str(ADD_NN_N(Natural(str(x)[1:]), Natural(str(y)))))
@@ -178,8 +174,7 @@ def MUL_ZZ_Z(a, b):
     """Произведение целых чисел. Дитятьев Иван"""
     x = a
     y = b
-
-    if ((a.b and b.b) or (not a.b and not b.b)):
+    if (a.b and b.b) or (not a.b and not b.b):
         return Integer(str(MUL_NN_N(Natural(str(ABS_Z_N(x))), Natural(str(ABS_Z_N(y))))))
     else:
         return MUL_ZM_Z(Integer(str(MUL_NN_N(Natural(str(ABS_Z_N(x))), Natural(str(ABS_Z_N(y)))))))

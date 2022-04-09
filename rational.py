@@ -1,4 +1,3 @@
-from naturals import *
 from integer import *
 
 
@@ -20,8 +19,9 @@ class Rational:
         return f'{self.numer}/{self.denom}'
 
 
-def INT_Q_B(a):
+def INT_Q_B(a1):
     """Проверка на целое. Если рациональное число является целым, то True, иначе False. Щелочкова Екатерина."""
+    a = RED_Q_Q(a1)
     if a.denom.A[0] == 1 and a.denom.n == 1:
         return True
     return False
@@ -46,9 +46,9 @@ def DIV_QQ_Q(a, b):
     if POZ_Z_D(b.number) == 2:
         b.number = TRANS_Z_N(b.number)
     elif POZ_Z_D(b.number) == 1:
-        b.number = MUN_ZM_Z(b.number)
+        b.number = MUL_ZM_Z(b.number)
         b.number = TRANS_Z_N(b.number)
-        a.number = MUN_ZM_Z(a.number)
+        a.number = MUL_ZM_Z(a.number)
     else:
         print("moron")
     a.number = MUL_ZZ_Z(a.number, b.denom)
@@ -113,14 +113,14 @@ def SUB_QQ_Q(self, other):
     return a
 
 
-def MUL_QQ_Q(a1, b1):
+def MUL_QQ_Q(self, other):
     """Умножение дробей. Абдулаев Алексей"""
-    a = Rational(str(a1))
-    b = Rational(str(b1))
-    num1 = MUL_ZZ_Z(a.numer, b.numer)
-    num2 = MUL_NN_N(a.denom, b.denom)
+    a = Rational(str(self))
+    b = Rational(str(other))
+    num1 = MUL_ZZ_Z(self.numer, other.numer)
+    num2 = MUL_NN_N(self.denom, other.denom)
     a.numer = num1
-    a.denom = num2
+    b.numer = num2
     return a
 
 
