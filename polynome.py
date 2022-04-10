@@ -153,7 +153,7 @@ def FAC_P_Q(a):
     nod = GCF_NN_N(a[0], a[1])
     for i in range(3, len(a)):
         nod = GCF_NN_N(nod, a[i])
-    b = [ABS_Z_N(j.denom) for j in b.C if str(j.denom) != '0']
+    b = [ABS_Z_N(j.denom) for j in a.C if str(j.denom) != '0']
     if len(b) < 2:
         return b[0]
     elif len(b) == 2:
@@ -199,15 +199,15 @@ def NMR_P_P(poly1):
 
 def MUL_PP_P(poly1, poly2):
     """Умножение полинома на полином. Глушков Арсений"""
-    n = DEG_P_N(poly1)
-    m = DEG_P_N(poly2)
+    n = DEG_P_N(poly1) + 1
+    m = DEG_P_N(poly2) + 1
     if n < m:
         poly1, poly2 = poly2, poly1
         n, m = m, n
 
     # Формирование нового полинома
     res_poly = Polynome('0')
-    res_poly = MUL_Pxk_P(res_poly, n + m)
+    res_poly = MUL_Pxk_P(res_poly, n + m - 2)
 
     # Заполнение нового полинома
     for k in range(m):
@@ -255,8 +255,9 @@ def MOD_PP_P(poly1, divider):
 
 
 if __name__ == '__main__':
-    a = Polynome("-9/3x^4 + 15/5x^3-12/2x-8/4")
-    b = Polynome("3/2 -13/7 -5/2")
+    a = Polynome("9x^4 + 15x^3-12x^2-8x + 1")
+    b = Polynome("3x^2 -13x -5")
     # k = int(input())
     print(a)
-    print(DER_P_P(a))
+    print(b)
+    print(MUL_PP_P(a, b))
