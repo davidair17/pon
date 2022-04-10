@@ -50,6 +50,13 @@ class Main(Frame):
         entry.grid(row=2, column=0, columnspan=3, padx=(5, 5), pady=(5, 5))
         self.entry = entry
         self.create_buttons(mode)
+        label = Label(text='Чтобы узнать, что делает функция, наведите курсор мыши на неё.\n'
+                           'Примеры ввода чисел:\n'
+                           'Натуральные: 0; 13; 230032; 12; 23; 7645\n'
+                           'Целые: 34; 364; 8231; -3423; -938; -38; 81\n'
+                           'Рациональные: 3/4; -3/8; -1; 13; 0; -12/21\n'
+                           'Полиномы: 3/4x^5-3423x; 9x^3+x^2-4/10', font=("Roboto", 12), justify="left")
+        label.grid(row=7, column=0, columnspan=4, padx=(5, 5), pady=(5, 5))
         self.mainloop()
 
     def create_buttons(self, operation):
@@ -111,7 +118,7 @@ class Main(Frame):
     def is_rational(self, n):
         """Проверка строки на рациональное. Смирнов Иван"""
         if '/' in n:
-            return self.is_integer(n.split('/')[0]) and self.is_natural(n.split('/')[1])
+            return self.is_integer(n.split('/')[0]) and self.is_natural(n.split('/')[1]) and n.split('/')[1] != '0'
         return self.is_integer(n)
 
     def get_rational(self):
