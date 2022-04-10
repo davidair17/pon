@@ -199,15 +199,15 @@ def NMR_P_P(poly1):
 
 def MUL_PP_P(poly1, poly2):
     """Умножение полинома на полином. Глушков Арсений"""
-    n = DEG_P_N(poly1)
-    m = DEG_P_N(poly2)
+    n = DEG_P_N(poly1) + 1
+    m = DEG_P_N(poly2) + 1
     if n < m:
         poly1, poly2 = poly2, poly1
         n, m = m, n
 
     # Формирование нового полинома
     res_poly = Polynome('0')
-    res_poly = MUL_Pxk_P(res_poly, n + m)
+    res_poly = MUL_Pxk_P(res_poly, n + m - 2)
 
     # Заполнение нового полинома
     for k in range(m):
@@ -255,8 +255,9 @@ def MOD_PP_P(poly1, divider):
 
 
 if __name__ == '__main__':
-    a = Polynome("-9/3x^4 + 15/5x^3-12/2x-8/4")
-    b = Polynome("3/2 -13/7 -5/2")
+    a = Polynome("9x^4 + 15x^3-12x^2-8x + 1")
+    b = Polynome("3x^2 -13x -5")
     # k = int(input())
     print(a)
-    print(DER_P_P(a))
+    print(b)
+    print(MUL_PP_P(a, b))
