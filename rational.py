@@ -50,8 +50,6 @@ def DIV_QQ_Q(a1, b1):
         b.numer = MUL_ZM_Z(b.numer)
         b.numer = TRANS_Z_N(b.numer)
         a.numer = MUL_ZM_Z(a.numer)
-    else:
-        print("moron")
     a.numer = MUL_ZZ_Z(a.numer, b.denom)
     a.denom = MUL_NN_N(a.denom, b.numer)
     return RED_Q_Q(a)
