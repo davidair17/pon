@@ -58,20 +58,6 @@ def DIV_QQ_Q(a1, b1):
     return a
 
 
-def MOD_ZZ_Z(a, b):
-    """остаток, a - делимое, b - делитель. Снятков Илья"""
-    if POZ_Z_D(b) == 0:
-        print("moron")
-    else:
-        c = DIV_ZZ_Z(a, b)
-        d = MUL_ZZ_Z(b, c)
-        if (POZ_Z_D(a) == 2 and POZ_Z_D(b) == 2) or (POZ_Z_D(a) == 2 and POZ_Z_D(b) == 1):
-            r = SUB_ZZ_Z(a, d)
-        elif POZ_Z_D(a) == 1 and POZ_Z_D(b) == 1:
-            r = MUL_ZM_Z(SUB_ZZ_Z(a, d))
-    return r
-
-
 def RED_Q_Q(a1):
     """Сокращение дроби.Ташимбетов Тимур"""
     Q = Rational(str(a1))
