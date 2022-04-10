@@ -128,8 +128,10 @@ def ADD_PP_P(poly11, poly22):
     return poly1
 
 
-def SUB_PP_P(poly1, poly2):
+def SUB_PP_P(poly11, poly22):
     """Вычитание многочленов. Малых Андрей"""
+    poly1 = Polynome(str(poly11))
+    poly2 = Polynome(str(poly22))
     if DEG_P_N(poly1) < DEG_P_N(poly2):
         poly1, poly2 = poly2, poly1
     for i in range(DEG_P_N(poly2) + 1):
@@ -138,8 +140,9 @@ def SUB_PP_P(poly1, poly2):
     return poly1
 
 
-def MUL_PQ_P(polynome, num):
+def MUL_PQ_P(polynome1, num):
     """Умножение многочлена на число. Малых Андрей"""
+    polynome = Polynome(str(polynome1))
     for i in range(DEG_P_N(polynome) + 1):
         polynome.C[i] = MUL_QQ_Q(polynome.C[i], num)
     polynome.frontZerosDel()
