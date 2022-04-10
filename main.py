@@ -19,10 +19,12 @@ class Main(Frame):
     buttons = buttons
 
     def __init__(self, root):
+        """Инициализация приложения. Смирнов Иван"""
         super(Main, self).__init__(root)
         self.build("Natural")
 
     def build(self, mode):
+        """Заполнение окна. Смирнов Иван"""
         for i in range(len(self.modes)):
             com = lambda x=self.modes[i][1]: self.create_buttons(x)
             button = Button(text=self.modes[i][0], command=com, font=("Roboto", 14), width=12)
@@ -46,6 +48,7 @@ class Main(Frame):
         self.mainloop()
 
     def create_buttons(self, operation):
+        """Создание набора кнопок для вызова группы функций. Смирнов Иван"""
         buttons = self.buttons[operation]
         for button in self.mode_buttons:
             button["state"] = "normal"
@@ -65,12 +68,14 @@ class Main(Frame):
             Hovertip(button, buttons[i][1], hover_delay=100)
 
     def is_natural(self, n):
+        """Проверка строки на натуральное. Смирнов Иван"""
         if n.isdigit():
             if int(n) >= 0:
                 return True
         return False
 
     def get_natural(self):
+        """Ввод натурального. Смирнов Иван"""
         self.instruction.config(text='Введите натуральное число или ноль')
         self.enter_button.wait_variable(self.var)
         s = self.entry.get()
@@ -81,9 +86,11 @@ class Main(Frame):
         return Natural(s)
 
     def is_integer(self, n):
+        """Проверка строки на целое. Смирнов Иван"""
         return n.isdigit() or n[1:].isdigit and n[0] == '-'
 
     def get_integer(self):
+        """Ввод целого. Смирнов Иван"""
         self.instruction.config(text='Введите целое число')
         self.enter_button.wait_variable(self.var)
         s = self.entry.get()
@@ -94,11 +101,28 @@ class Main(Frame):
         return Integer(s)
 
     def is_rational(self, n):
+        """Проверка строки на рациональное. Смирнов Иван"""
         if '/' in n:
             return self.is_integer(n.split('/')[0]) and self.is_natural(n.split('/')[1])
         return self.is_integer(n)
 
     def get_rational(self):
+        """Ввод рационального. Смирнов Иван"""
+        self.instruction.config(text='Введите рациональное число (дробь)')
+        self.enter_button.wait_variable(self.var)
+        s = self.entry.get()
+        while not self.is_rational(s):
+            self.instruction.config(text='Неправильный формат, попробуйте ещё раз')
+            self.enter_button.wait_variable(self.var)
+            s = self.entry.get()
+        return Rational(s)
+
+    def is_polynome(self, n):
+        """Проверка на полином. Малых Андрей"""
+        return True
+
+    def get_polynome(self):
+        """Ввод полинома. Смирнов Иван"""
         self.instruction.config(text='Введите рациональное число (дробь)')
         self.enter_button.wait_variable(self.var)
         s = self.entry.get()
@@ -109,6 +133,7 @@ class Main(Frame):
         return Rational(s)
 
     def calculate(self, name):
+        """Вычисление результат выбранной функции. Смирнов Иван"""
         f = eval(name)
         for button in self.all_buttons:
             button["state"] = "disable"

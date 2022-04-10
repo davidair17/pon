@@ -153,7 +153,7 @@ def FAC_P_Q(a):
     nod = GCF_NN_N(a[0], a[1])
     for i in range(3, len(a)):
         nod = GCF_NN_N(nod, a[i])
-    b = [ABS_Z_N(j.denom) for j in b.C if str(j.denom) != '0']
+    b = [ABS_Z_N(j.denom) for j in a.C if str(j.denom) != '0']
     if len(b) < 2:
         return b[0]
     elif len(b) == 2:
@@ -166,7 +166,7 @@ def FAC_P_Q(a):
 
 
 def GCF_PP_P(a, b):
-    """нод многочленов. Снятков Илья"""
+    """Нод многочленов. Снятков Илья"""
     a1 = Polynome(str(a))
     b1 = Polynome(str(b))
 
@@ -186,7 +186,6 @@ def GCF_PP_P(a, b):
 
 def NMR_P_P(poly1):
     """Преобразование многочлена — кратные корни в простые.Николаев Клим"""
-    # Заглушка в ожидании функций
     # Производная многочлена
     temp = DER_P_P(poly1)
     # НОД многочлена и его производной
@@ -196,6 +195,7 @@ def NMR_P_P(poly1):
     res = DIV_PP_P(poly1, gcf)
     res = MUL_PQ_P(res, fac)
     return Polynome(res)
+
 
 def MUL_PP_P(poly1, poly2):
     """Умножение полинома на полином. Глушков Арсений"""
