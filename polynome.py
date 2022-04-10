@@ -170,7 +170,7 @@ def GCF_PP_P(a, b):
     a1 = Polynome(str(a))
     b1 = Polynome(str(b))
 
-    if (DEG_P_N(a1) > DEG_P_N(b1)) or (DEG_P_N(a1) = DEG_P_N(b1)):
+    if (DEG_P_N(a1) > DEG_P_N(b1)) or (DEG_P_N(a1) == DEG_P_N(b1)):
         while b1 != 0:
             temp = b
             b1 = MOD_PP_P(a1, b1)

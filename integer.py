@@ -64,54 +64,49 @@ def POZ_Z_D(z):
 
 def DIV_ZZ_Z(a1, b1):
     """Частное от деления целого на целое (делитель отличен от нуля).Ташимбетов Тимур"""
-    a = Integer(str(a1))
-    b = Integer(str(b1))
-    if (POZ_Z_D(a) == 2) and (POZ_Z_D(b) == 2):  # если оба числа положительные
-        if a > b:
+    k = Integer(str(a1))
+    l = Integer(str(b1))
+    a = TRANS_Z_N(k)
+    b = TRANS_Z_N(l)
+    c = Integer("")
+    if (POZ_Z_D(k) == 2) and (POZ_Z_D(l) == 2):  # если оба числа положительные
+        if COM_NN_D(a,b) == 2:
             c = DIV_NN_N(a, b)
-        if a < b:
+        if COM_NN_D(a,b) == 1:
             c = 0
-        if a == b:
+        if COM_NN_D(a,b) == 0:
             c = 1
-    # если первое число положительное, а второе отрицательное
-    if (POZ_Z_D(a) == 2) and (POZ_Z_D(b) == 1):
-        am = ABS_Z_N(a)
-        bm = ABS_Z_N(b)
-        if am < bm:
+    if (POZ_Z_D(k) == 2) and (POZ_Z_D(l) == 1):      # если первое число положительное, а второе отрицательное
+        t = ABS_Z_N(a)
+        y = ABS_Z_N(b)
+        if COM_NN_D(a,b) == 1:
             c = 0
-        if am == bm:
+        if COM_NN_D(a,b) == 0:
             c = 1
-        if am > bm:
-            cp = DIV_NN_N(a, b)
-            if MUL_ZZ_Z(cp, bm) == am:
-                c = cp
-            c = MUL_ZZ_Z(c, -1)
-    if (POZ_Z_D(a) == 1) and (POZ_Z_D(b) == 2):  # если первое отрицательное, а второе положительное
-        am = ABS_Z_N(a)
-        bm = ABS_Z_N(b)
-        if am < bm:
+        if COM_NN_D(a,b) == 2:
+            cp = DIV_NN_N(t, y)
+            c = MUL_ZM_Z(cp)
+    if ((POZ_Z_D(k) == 1) and (POZ_Z_D(l) == 2)):  # если первое отрицательное, а второе положительное
+        t = ABS_Z_N(a)
+        y = ABS_Z_N(b)
+        if COM_NN_D(a, b) == 1:
             c = 0
-        if am == bm:
+        if COM_NN_D(a, b) == 0:
             c = 1
-        if am > bm:
-            cp = DIV_NN_N(a, b)
-            if MUL_ZZ_Z(cp, bm) == am:
-                c = cp
-            c = ADD_1N_N(c)
-            c = MUL_ZZ_Z(c, -1)
-    if (POZ_Z_D(a) == 1) and (POZ_Z_D(b) == 1):  # если оба числа отрицательные
-        am = ABS_Z_N(a)
-        bm = ABS_Z_N(b)
-        if am < bm:
+        if COM_NN_D(a, b) == 2:
+            cp = TRANS_N_Z(ADD_1N_N(DIV_NN_N(t, y)))
+            c = MUL_ZM_Z(cp)
+    if ((POZ_Z_D(k) == 1) and (POZ_Z_D(l) == 1)):  # если оба числа отрицательные
+        t = ABS_Z_N(a)
+        y = ABS_Z_N(b)
+        if COM_NN_D(a, b) == 1:
             c = 0
-        if am == bm:
+        if COM_NN_D(a, b) == 0:
             c = 1
-        if am > bm:
-            cp = DIV_NN_N(a, b)
-            if MUL_ZZ_Z(cp, bm) == am:
-                c = cp
-            c = ADD_1N_N(c)
-    if (POZ_Z_D(a) == 0) and (POZ_Z_D(b) == 1) or (POZ_Z_D(b) == 2):  # если первое число 0
+        if COM_NN_D(a, b) == 2:
+            cp = DIV_NN_N(t, y)
+            c = ADD_1N_N(cp)
+    if ((POZ_Z_D(k) == 0) and ((POZ_Z_D(l) == 1) or (POZ_Z_D(l) == 2))):  # если первое число 0
         c = 0
     return c
 
@@ -124,7 +119,6 @@ def ADD_ZZ_Z(a, b):
     else:
         x = b
         y = a
-
     if x.b == 0 and y.b == 0:
         return Integer(str(ADD_NN_N(Natural(str(x)), Natural(str(y)))))
     elif x.b == 1 and y.b == 1:
@@ -172,12 +166,12 @@ def SUB_ZZ_Z(a, b):
 
 def MUL_ZZ_Z(a, b):
     """Произведение целых чисел. Дитятьев Иван"""
-    x = Integer(str(a))
-    y = Integer(str(b))
-    if (x.b and y.b) or (not x.b and not y.b):
-        return TRANS_N_Z(MUL_NN_N(ABS_Z_N(x), ABS_Z_N(y)))
+    x = a
+    y = b
+    if (a.b and b.b) or (not a.b and not b.b):
+        return Integer(str(MUL_NN_N(Natural(str(ABS_Z_N(x))), Natural(str(ABS_Z_N(y))))))
     else:
-        return MUL_ZM_Z(TRANS_N_Z(MUL_NN_N(ABS_Z_N(x), ABS_Z_N(y))))
+        return MUL_ZM_Z(Integer(str(MUL_NN_N(Natural(str(ABS_Z_N(x))), Natural(str(ABS_Z_N(y)))))))
 
 
 def MOD_ZZ_Z(a, b):
@@ -203,5 +197,5 @@ if __name__ == '__main__':
     print(ABS_Z_N(z))
     print(MUL_ZM_Z(z))
     print(TRANS_N_Z(nat))
-    print(TRANS_N_Z(z))
+    print(str(TRANS_N_Z(z)))
     print(z, nat)
