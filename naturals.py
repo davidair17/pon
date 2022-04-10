@@ -24,8 +24,9 @@ def COM_NN_D(a, b):
         return 1
 
 
-def MUL_ND_N(a, x):
+def MUL_ND_N(a1, x):
     """Умножение натурального числа на цифру. Дитятьев Иван"""
+    a = Natural(str(a1))
     if x != 0:
         a.A.reverse()
         ost = 0
@@ -202,7 +203,7 @@ def MUL_NN_N(a1, b1):
         return Natural('0')
 
 
-def SUB_NDN_N(a1, b1, D):
+def SUB_NDN_N(a1, D, b1):
     """Вычитание из натурального другого натурального, умноженного на цифру для случая с неотрицательным результатом. Айрапетов Давид"""
     a = Natural(str(a1))
     b = Natural(str(b1))

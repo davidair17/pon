@@ -145,7 +145,7 @@ def MUL_PQ_P(polynome, num):
 
 def FAC_P_Q(a):
     """Вынесение из многочлена НОК знаменателей коэффициентов и НОД числителей.Максимов Матвей"""
-    pol=a
+    pol = a
     a = [ABS_Z_N(i.numer) for i in pol.C if str(i.numer) != '0']
     if len(a) < 2:
         return a[0]
@@ -223,6 +223,7 @@ def MUL_PP_P(poly1, poly2):
 
     return res_poly
 
+
 def DIV_PP_P(poly1, poly2):
     """Частное от деления полинома на полином. Глушков Арсений"""
     r = Polynome(str(poly1))
@@ -240,6 +241,7 @@ def DIV_PP_P(poly1, poly2):
             divider = Polynome(str(poly2))
             r = SUB_PP_P(r, MUL_PQ_P(MUL_Pxk_P(divider, n - m - i), temp))
     return q
+
 
 def MOD_PP_P(poly1, divider):
     """Остаток от деления полинома на полином. Глушков Арсений"""
