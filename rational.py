@@ -40,19 +40,21 @@ def TRANS_Z_Q(с):
     return a
 
 
-def DIV_QQ_Q(a, b):
+def DIV_QQ_Q(a1, b1):
     """деление дробей. Снятков Илья"""
+    a = Rational(str(a1))
+    b = Rational(str(b1))
     b.denom = TRANS_N_Z(b.denom)
-    if POZ_Z_D(b.number) == 2:
-        b.number = TRANS_Z_N(b.number)
-    elif POZ_Z_D(b.number) == 1:
-        b.number = MUL_ZM_Z(b.number)
-        b.number = TRANS_Z_N(b.number)
-        a.number = MUL_ZM_Z(a.number)
+    if POZ_Z_D(b.numer) == 2:
+        b.numer = TRANS_Z_N(b.numer)
+    elif POZ_Z_D(b.numer) == 1:
+        b.numer = MUL_ZM_Z(b.numer)
+        b.numer = TRANS_Z_N(b.numer)
+        a.numer = MUL_ZM_Z(a.numer)
     else:
         print("moron")
-    a.number = MUL_ZZ_Z(a.number, b.denom)
-    a.denom = MUL_NN_N(a.denom, b.number)
+    a.numer = MUL_ZZ_Z(a.numer, b.denom)
+    a.denom = MUL_NN_N(a.denom, b.numer)
     return a
 
 
