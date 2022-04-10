@@ -55,7 +55,7 @@ def DIV_QQ_Q(a1, b1):
         print("moron")
     a.numer = MUL_ZZ_Z(a.numer, b.denom)
     a.denom = MUL_NN_N(a.denom, b.numer)
-    return a
+    return RED_Q_Q(a)
 
 
 def RED_Q_Q(a1):
@@ -70,6 +70,7 @@ def RED_Q_Q(a1):
     q12 = DIV_ZZ_Z(q2, n)
     r.numer = q11
     r.denom = q12
+    return r
 
 
 def ADD_QQ_Q(a1, b1):
@@ -84,7 +85,7 @@ def ADD_QQ_Q(a1, b1):
 
     a.numer = ADD_ZZ_Z(new_a, new_b)
     a.denom = LCdenom
-    return a
+    return RED_Q_Q(a)
 
 
 def SUB_QQ_Q(a1, b1):
@@ -99,7 +100,7 @@ def SUB_QQ_Q(a1, b1):
 
     a.numer = SUB_ZZ_Z(new_a, new_b)
     a.denom = LCdenom
-    return a
+    return RED_Q_Q(a)
 
 
 def MUL_QQ_Q(a1, b1):
@@ -110,7 +111,7 @@ def MUL_QQ_Q(a1, b1):
     num2 = MUL_NN_N(a.denom, b.denom)
     a.numer = num1
     a.denom = num2
-    return a
+    return RED_Q_Q(a)
 
 
 if __name__ == '__main__':

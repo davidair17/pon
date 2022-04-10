@@ -212,45 +212,47 @@ def MUL_PP_P(poly1, poly2):
     # Заполнение нового полинома
     for k in range(m):
         for i in range(k + 1):
-            res_poly.C[k] = ADD_QQ_Q(res_poly.C[k], MUL_QQ_Q(poly1.C[i], poly2.C[k - i]))
+            res_poly.C[k] = ADD_QQ_Q(
+                res_poly.C[k], MUL_QQ_Q(poly1.C[i], poly2.C[k - i]))
     for k in range(m, n):
         for i in range(k - m + 1, k + 1):
-            res_poly.C[k] = ADD_QQ_Q(res_poly.C[k], MUL_QQ_Q(poly1.C[i], poly2.C[k - i]))
+            res_poly.C[k] = ADD_QQ_Q(
+                res_poly.C[k], MUL_QQ_Q(poly1.C[i], poly2.C[k - i]))
     for k in range(n, m + n):
         for i in range(k - m + 1, n):
-            res_poly.C[k] = ADD_QQ_Q(res_poly.C[k], MUL_QQ_Q(poly1.C[i], poly2.C[k - i]))
+            res_poly.C[k] = ADD_QQ_Q(
+                res_poly.C[k], MUL_QQ_Q(poly1.C[i], poly2.C[k - i]))
 
     return res_poly
 
-def DIV_PP_P(poly1, divider):
-    """Частное от деления полинома на полином. Глушков Арсений"""
 
+def DIV_PP_P(poly1, poly2):
+    """Частное от деления полинома на полином. Глушков Арсений"""
+    r = Polynome(str(poly1))
     n = DEG_P_N(poly1)
-    m = DEG_P_N(divider)
+    m = DEG_P_N(poly2)
     if n < m:
         q = Polynome("1")
     else:
-        r = Polynome()
-        r.m = poly1.m
-        r.C = poly1.C
         q = Polynome("0")
         q = MUL_Pxk_P(q, n - m)
-        cde = LED_P_Q(divider)
-        for i in range(DEG_P_N(poly1) - DEG_P_N(divider) + 1):
+        cde = LED_P_Q(poly2)
+        for i in range(DEG_P_N(poly1) - DEG_P_N(poly2) + 1):
             temp = DIV_QQ_Q(LED_P_Q(r), cde)
             q.C[i] = temp
+            divider = Polynome(str(poly2))
             r = SUB_PP_P(r, MUL_PQ_P(MUL_Pxk_P(divider, n - m - i), temp))
     return q
+
 
 def MOD_PP_P(poly1, divider):
     """Остаток от деления полинома на полином. Глушков Арсений"""
 
     if DEG_P_N(poly1) >= DEG_P_N(divider):
-        res_poly = SUB_PP_P(poly1, MUL_PP_P(DIV_PP_P(poly1, divider), divider))
+        sf = Polynome(str(poly1))
+        res_poly = SUB_PP_P(sf, MUL_PP_P(DIV_PP_P(poly1, divider), divider))
     else:
-        res_poly = Polynome()
-        res_poly.m = poly1.m
-        res_poly.C = poly1.C
+        res_poly = Polynome(str(poly1))
     return res_poly
 
 
@@ -261,3 +263,5 @@ if __name__ == '__main__':
     print(a)
     print(b)
     print(MUL_PP_P(a, b))
+    print(DIV_PP_P(a, b))
+    print(MOD_PP_P(a, b))
