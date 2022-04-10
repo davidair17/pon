@@ -88,7 +88,7 @@ def DIV_ZZ_Z(a1, b1):
         if COM_NN_D(a,b) == 2:
             c = MUL_ZM_Z(TRANS_N_Z(DIV_NN_N(t, y)))
 
-    if ((POZ_Z_D(k) == 1) and (POZ_Z_D(l) == 2)):  # если первое отрицательное, а второе положительное
+    if (POZ_Z_D(k) == 1) and (POZ_Z_D(l) == 2):  # если первое отрицательное, а второе положительное
         t = ABS_Z_N(k)
         y = ABS_Z_N(b)
 
@@ -102,7 +102,7 @@ def DIV_ZZ_Z(a1, b1):
             else:
                 c = MUL_ZM_Z(TRANS_N_Z(ADD_1N_N(div)))
 
-    if ((POZ_Z_D(k) == 1) and (POZ_Z_D(l) == 1)):  # если оба числа отрицательные
+    if (POZ_Z_D(k) == 1) and (POZ_Z_D(l) == 1):  # если оба числа отрицательные
         t = ABS_Z_N(a)
         y = ABS_Z_N(b)
 
@@ -185,19 +185,13 @@ def MUL_ZZ_Z(a, b):
 
 def MOD_ZZ_Z(a, b):
     """остаток, a - делимое, b - делитель. Снятков Илья"""
-    if POZ_Z_D(b) == 0:
-        print("moron")
-    else:
-        c = DIV_ZZ_Z(a, b)
-        d = MUL_ZZ_Z(b, c)
-        if (POZ_Z_D(a) == 2 and POZ_Z_D(b) == 2) or (POZ_Z_D(a) == 2 and POZ_Z_D(b) == 1):
-            r = SUB_ZZ_Z(a, d)
-        elif (POZ_Z_D(a) == 1 and POZ_Z_D(b) == 1) or (POZ_Z_D(a) == 1 and POZ_Z_D(b) == 2):
-            r = MUL_ZM_Z(SUB_ZZ_Z(a, d))
+    c = DIV_ZZ_Z(a, b)
+    d = MUL_ZZ_Z(b, c)
+    r = SUB_ZZ_Z(a, d)
     return r
 
 
 if __name__ == '__main__':
-    z = Integer("-4")
-    nat = Natural("6")
-    print(DIV_ZZ_Z(-1404,26))
+    a = Integer("0")
+    b = Integer("-3")
+    print(MOD_ZZ_Z(a, b))
