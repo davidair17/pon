@@ -197,6 +197,62 @@ def NMR_P_P(poly1):
     res = MUL_PQ_P(res, fac)
     return Polynome(res)
 
+def MUL_PP_P(poly1, poly2):
+    """Умножение полинома на полином. Глушков Арсений"""
+    n = DEG_P_N(poly1)
+    m = DEG_P_N(poly2)
+    if n < m:
+        poly1, poly2 = poly2, poly1
+        n, m = m, n
+
+    # Формирование нового полинома
+    res_poly = Polynome('0')
+    res_poly = MUL_Pxk_P(res_poly, n + m)
+
+    # Заполнение нового полинома
+    for k in range(m):
+        for i in range(k + 1):
+            res_poly.C[k] = ADD_QQ_Q(res_poly.C[k], MUL_QQ_Q(poly1.C[i], poly2.C[k - i]))
+    for k in range(m, n):
+        for i in range(k - m + 1, k + 1):
+            res_poly.C[k] = ADD_QQ_Q(res_poly.C[k], MUL_QQ_Q(poly1.C[i], poly2.C[k - i]))
+    for k in range(n, m + n):
+        for i in range(k - m + 1, n):
+            res_poly.C[k] = ADD_QQ_Q(res_poly.C[k], MUL_QQ_Q(poly1.C[i], poly2.C[k - i]))
+
+    return res_poly
+
+def DIV_PP_P(poly1, divider):
+    """Частное от деления полинома на полином. Глушков Арсений"""
+
+    n = DEG_P_N(poly1)
+    m = DEG_P_N(divider)
+    if n < m:
+        q = Polynome("1")
+    else:
+        r = Polynome()
+        r.m = poly1.m
+        r.C = poly1.C
+        q = Polynome("0")
+        q = MUL_Pxk_P(q, n - m)
+        cde = LED_P_Q(divider)
+        for i in range(DEG_P_N(poly1) - DEG_P_N(divider) + 1):
+            temp = DIV_QQ_Q(LED_P_Q(r), cde)
+            q.C[i] = temp
+            r = SUB_PP_P(r, MUL_PQ_P(MUL_Pxk_P(divider, n - m - i), temp))
+    return q
+
+def MOD_PP_P(poly1, divider):
+    """Остаток от деления полинома на полином. Глушков Арсений"""
+
+    if DEG_P_N(poly1) >= DEG_P_N(divider):
+        res_poly = SUB_PP_P(poly1, MUL_PP_P(DIV_PP_P(poly1, divider), divider))
+    else:
+        res_poly = Polynome()
+        res_poly.m = poly1.m
+        res_poly.C = poly1.C
+    return res_poly
+
 
 if __name__ == '__main__':
     a = Polynome("-9/3x^4 + 15/5x^3-12/2x-8/4")
