@@ -93,8 +93,9 @@ def DEG_P_N(polynome):
     return polynome.m
 
 
-def MUL_Pxk_P(poly1, k):
+def MUL_Pxk_P(poly, k):
     """Умножение полинома на x^k. Угрюмов Михаил."""
+    poly1 = Polynome(str(poly))
     poly1.m = poly1.m + k
     for i in range(k):
         poly1.C.append(Rational("0/1"))
