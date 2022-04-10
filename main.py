@@ -1,3 +1,4 @@
+import re
 from naturals import *
 from integer import *
 from rational import *
