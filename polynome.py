@@ -150,7 +150,7 @@ def FAC_P_Q(a):
     if len(a) < 2:
         return a[0]
     elif len(a) == 2:
-        return (GCF_NN_N(a[0], a[1]))
+        return GCF_NN_N(a[0], a[1])
     nod = GCF_NN_N(a[0], a[1])
     for i in range(2, len(a)):
         nod = GCF_NN_N(nod, a[i])
@@ -158,7 +158,7 @@ def FAC_P_Q(a):
     if len(b) < 2:
         return b[0]
     elif len(b) == 2:
-        return (LCM_NN_N(b[0], b[1]))
+        return LCM_NN_N(b[0], b[1])
     nok = LCM_NN_N(b[0], b[1])
     for i in range(2, len(a)):
         nok = LCM_NN_N(nok, b[i])
