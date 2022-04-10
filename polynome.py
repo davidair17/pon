@@ -165,6 +165,25 @@ def FAC_P_Q(a):
     return q
 
 
+def GCF_PP_P(a, b):
+    """нод многочленов. Снятков Илья"""
+    a1 = Polynome(str(a))
+    b1 = Polynome(str(b))
+
+    if (DEG_P_N(a1) > DEG_P_N(b1)) or (DEG_P_N(a1) = DEG_P_N(b1)):
+        while b1 != 0:
+            temp = b
+            b1 = MOD_PP_P(a1, b1)
+            a1 = temp
+        return a1
+    else:
+        while a1 != 0:
+            temp = a1
+            a1 = MOD_PP_P(b1, a1)
+            b1 = temp
+        return b1
+
+
 def NMR_P_P(poly1):
     """Преобразование многочлена — кратные корни в простые.Николаев Клим"""
     # Заглушка в ожидании функций
