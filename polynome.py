@@ -145,22 +145,21 @@ def MUL_PQ_P(polynome, num):
 
 def FAC_P_Q(a):
     """Вынесение из многочлена НОК знаменателей коэффициентов и НОД числителей.Максимов Матвей"""
-    pol = a
-    a = [ABS_Z_N(i.numer) for i in pol.C if str(i.numer) != '0']
+    a = [ABS_Z_N(i.numer) for i in a.C if str(i.numer) != '0']
     if len(a) < 2:
         return a[0]
     elif len(a) == 2:
         return GCF_NN_N(a[0], a[1])
     nod = GCF_NN_N(a[0], a[1])
-    for i in range(2, len(a)):
+    for i in range(3, len(a)):
         nod = GCF_NN_N(nod, a[i])
-    b = [ABS_Z_N(j.denom) for j in pol.C if str(j.denom) != '0']
+    b = [ABS_Z_N(j.denom) for j in a.C if str(j.denom) != '0']
     if len(b) < 2:
         return b[0]
     elif len(b) == 2:
         return LCM_NN_N(b[0], b[1])
     nok = LCM_NN_N(b[0], b[1])
-    for i in range(2, len(a)):
+    for j in range(3, len(a)):
         nok = LCM_NN_N(nok, b[i])
     q = Rational(str(Rational(str(nod))) + '/' + str(Natural(str(nok))))
     return q
@@ -213,13 +212,16 @@ def MUL_PP_P(poly1, poly2):
     # Заполнение нового полинома
     for k in range(m):
         for i in range(k + 1):
-            res_poly.C[k] = ADD_QQ_Q(res_poly.C[k], MUL_QQ_Q(poly1.C[i], poly2.C[k - i]))
+            res_poly.C[k] = ADD_QQ_Q(
+                res_poly.C[k], MUL_QQ_Q(poly1.C[i], poly2.C[k - i]))
     for k in range(m, n):
         for i in range(k - m + 1, k + 1):
-            res_poly.C[k] = ADD_QQ_Q(res_poly.C[k], MUL_QQ_Q(poly1.C[i], poly2.C[k - i]))
+            res_poly.C[k] = ADD_QQ_Q(
+                res_poly.C[k], MUL_QQ_Q(poly1.C[i], poly2.C[k - i]))
     for k in range(n, m + n):
         for i in range(k - m + 1, n):
-            res_poly.C[k] = ADD_QQ_Q(res_poly.C[k], MUL_QQ_Q(poly1.C[i], poly2.C[k - i]))
+            res_poly.C[k] = ADD_QQ_Q(
+                res_poly.C[k], MUL_QQ_Q(poly1.C[i], poly2.C[k - i]))
 
     return res_poly
 
@@ -255,13 +257,11 @@ def MOD_PP_P(poly1, divider):
 
 
 if __name__ == '__main__':
-    a = Polynome("9x^4 + 53x^3-12x^2-9x + 3")
-    b = Polynome("3x^2 -27x -3")
+    a = Polynome("9x^4 + 15x^3-12x^2-8x + 1")
+    b = Polynome("3x^2 -13x -5")
     # k = int(input())
     print(a)
     print(b)
     print(MUL_PP_P(a, b))
     print(DIV_PP_P(a, b))
     print(MOD_PP_P(a, b))
-    print(a)
-    print(b)
