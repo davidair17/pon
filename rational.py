@@ -70,6 +70,7 @@ def RED_Q_Q(a1):
     q12 = DIV_ZZ_Z(q2, n)
     r.numer = q11
     r.denom = q12
+    return r
 
 
 def ADD_QQ_Q(a1, b1):

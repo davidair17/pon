@@ -123,14 +123,14 @@ class Main(Frame):
 
     def get_polynome(self):
         """Ввод полинома. Смирнов Иван"""
-        self.instruction.config(text='Введите рациональное число (дробь)')
+        self.instruction.config(text='Введите полином')
         self.enter_button.wait_variable(self.var)
         s = self.entry.get()
-        while not self.is_rational(s):
+        while not self.is_polynome(s):
             self.instruction.config(text='Неправильный формат, попробуйте ещё раз')
             self.enter_button.wait_variable(self.var)
             s = self.entry.get()
-        return Rational(s)
+        return Polynome(s)
 
     def calculate(self, name):
         """Вычисление результат выбранной функции. Смирнов Иван"""
@@ -147,13 +147,18 @@ class Main(Frame):
                 arguments.append(self.get_integer())
             elif i == 'Q':
                 arguments.append(self.get_rational())
+            elif i == 'P':
+                arguments.append(self.get_polynome())
         for button in self.mode_buttons:
             button["state"] = "normal"
         for button in self.all_buttons:
             button["state"] = "normal"
-        result = str(f(*arguments))
-        arguments = [str(i) for i in arguments]
-        self.instruction.config(text=name + '(' + ', '.join(arguments) + ') = ' + result, wraplength=600)
+        if name == 'SUB_NN_N' and int(str(arguments[0])) < int(str(arguments[1])):
+            self.instruction.config(text='Первое число должно быть >= второго, операция отменена')
+        else:
+            result = str(f(*arguments))
+            arguments = [str(i) for i in arguments]
+            self.instruction.config(text=name + '(' + ', '.join(arguments) + ') = ' + result, wraplength=600)
 
 
 if __name__ == '__main__':
