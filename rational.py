@@ -85,7 +85,7 @@ def ADD_QQ_Q(a1, b1):
 
     a.numer = ADD_ZZ_Z(new_a, new_b)
     a.denom = LCdenom
-    return a
+    return RED_Q_Q(a)
 
 
 def SUB_QQ_Q(a1, b1):
@@ -100,7 +100,7 @@ def SUB_QQ_Q(a1, b1):
 
     a.numer = SUB_ZZ_Z(new_a, new_b)
     a.denom = LCdenom
-    return a
+    return RED_Q_Q(a)
 
 
 def MUL_QQ_Q(a1, b1):
@@ -111,7 +111,7 @@ def MUL_QQ_Q(a1, b1):
     num2 = MUL_NN_N(a.denom, b.denom)
     a.numer = num1
     a.denom = num2
-    return a
+    return RED_Q_Q(a)
 
 
 if __name__ == '__main__':
