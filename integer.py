@@ -72,20 +72,21 @@ def DIV_ZZ_Z(a1, b1):
     b = TRANS_Z_N(l)
     c = Integer("0")
     if (POZ_Z_D(k) == 2) and (POZ_Z_D(l) == 2):  # если оба числа положительные
-        if COM_NN_D(a,b) == 2:
+        if COM_NN_D(a, b) == 2:
             c = TRANS_N_Z(DIV_NN_N(a, b))
 
-        if COM_NN_D(a,b) == 0:
+        if COM_NN_D(a, b) == 0:
             c = TRANS_N_Z(ADD_1N_N(c))
 
-    if (POZ_Z_D(k) == 2) and (POZ_Z_D(l) == 1):      # если первое число положительное, а второе отрицательное
+    # если первое число положительное, а второе отрицательное
+    if (POZ_Z_D(k) == 2) and (POZ_Z_D(l) == 1):
 
         t = ABS_Z_N(a)
         y = ABS_Z_N(b)
 
-        if COM_NN_D(a,b) == 0:
+        if COM_NN_D(a, b) == 0:
             c = TRANS_N_Z(ADD_1N_N(c))
-        if COM_NN_D(a,b) == 2:
+        if COM_NN_D(a, b) == 2:
             c = MUL_ZM_Z(TRANS_N_Z(DIV_NN_N(t, y)))
 
     if (POZ_Z_D(k) == 1) and (POZ_Z_D(l) == 2):  # если первое отрицательное, а второе положительное
@@ -96,8 +97,8 @@ def DIV_ZZ_Z(a1, b1):
             c = TRANS_N_Z(ADD_1N_N(c))
         if COM_NN_D(a, b) == 2:
             div = (DIV_NN_N(t, y))
-            h = MUL_NN_N(div,y)
-            if COM_NN_D(t,h) == 0:
+            h = MUL_NN_N(div, y)
+            if COM_NN_D(t, h) == 0:
                 c = MUL_ZM_Z(TRANS_N_Z(div))
             else:
                 c = MUL_ZM_Z(TRANS_N_Z(ADD_1N_N(div)))

@@ -120,10 +120,12 @@ def ADD_PP_P(p1, p2):
     """Сложение многочленов. Малых Андрей"""
     poly1 = Polynome(str(p1))
     poly2 = Polynome(str(p2))
+
     if DEG_P_N(poly1) < DEG_P_N(poly2):
         poly1, poly2 = poly2, poly1
+    deg_delta = DEG_P_N(poly1) - DEG_P_N(poly2)
     for i in range(DEG_P_N(poly2) + 1):
-        poly1.C[i] = ADD_QQ_Q(poly1.C[i], poly2.C[i])
+        poly1.C[i + deg_delta] = ADD_QQ_Q(poly1.C[i + deg_delta], poly2.C[i])
     poly1.frontZerosDel()
     return poly1
 
@@ -134,8 +136,9 @@ def SUB_PP_P(p1, p2):
     poly2 = Polynome(str(p2))
     if DEG_P_N(poly1) < DEG_P_N(poly2):
         poly1, poly2 = poly2, poly1
+    deg_delta = DEG_P_N(poly1) - DEG_P_N(poly2)
     for i in range(DEG_P_N(poly2) + 1):
-        poly1.C[i] = SUB_QQ_Q(poly1.C[i], poly2.C[i])
+        poly1.C[i + deg_delta] = SUB_QQ_Q(poly1.C[i + deg_delta], poly2.C[i])
     poly1.frontZerosDel()
     return poly1
 
