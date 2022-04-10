@@ -8,7 +8,8 @@ from buttons import buttons
 
 
 class Main(Frame):
-    modes = [('Натуральные', 'Natural'), ('Целые', 'Integer'), ('Рациональные', 'Rational'), ('Многочлены', 'Polynome')]
+    modes = [('Натуральные', 'Natural'), ('Целые', 'Integer'),
+             ('Рациональные', 'Rational'), ('Многочлены', 'Polynome')]
     mode_buttons = []
     enter_button = []
     instruction = []
@@ -27,7 +28,8 @@ class Main(Frame):
         """Заполнение окна. Смирнов Иван"""
         for i in range(len(self.modes)):
             com = lambda x=self.modes[i][1]: self.create_buttons(x)
-            button = Button(text=self.modes[i][0], command=com, font=("Roboto", 14), width=12)
+            button = Button(text=self.modes[i][0], command=com, font=(
+                "Roboto", 14), width=12)
             self.mode_buttons.append(button)
             button.grid(row=0, column=i, padx=(5, 5), pady=(5, 5))
 
@@ -36,7 +38,8 @@ class Main(Frame):
         self.instruction = label
 
         self.var = IntVar()
-        enter = Button(text='Ввод', font=("Roboto", 14), width=12, command=lambda: self.var.set(1))
+        enter = Button(text='Ввод', font=("Roboto", 14),
+                       width=12, command=lambda: self.var.set(1))
         enter.grid(row=2, column=3, padx=(5, 5), pady=(5, 5))
         self.enter_button = enter
 
@@ -61,7 +64,8 @@ class Main(Frame):
         self.all_buttons = []
         for i in range(len(buttons)):
             com = lambda x=buttons[i][0]: self.calculate(x)
-            button = Button(text=buttons[i][0], command=com, font=("Roboto", 14), width=12)
+            button = Button(text=buttons[i][0], command=com, font=(
+                "Roboto", 14), width=12)
             button.grid(row=3 + i // 4, column=i % 4, padx=(5, 5), pady=(5, 5))
 
             self.all_buttons.append(button)
@@ -80,7 +84,8 @@ class Main(Frame):
         self.enter_button.wait_variable(self.var)
         s = self.entry.get()
         while not self.is_natural(s):
-            self.instruction.config(text='Неправильный формат, попробуйте ещё раз')
+            self.instruction.config(
+                text='Неправильный формат, попробуйте ещё раз')
             self.enter_button.wait_variable(self.var)
             s = self.entry.get()
         return Natural(s)
@@ -95,7 +100,8 @@ class Main(Frame):
         self.enter_button.wait_variable(self.var)
         s = self.entry.get()
         while not self.is_integer(s):
-            self.instruction.config(text='Неправильный формат, попробуйте ещё раз')
+            self.instruction.config(
+                text='Неправильный формат, попробуйте ещё раз')
             self.enter_button.wait_variable(self.var)
             s = self.entry.get()
         return Integer(s)
@@ -112,14 +118,41 @@ class Main(Frame):
         self.enter_button.wait_variable(self.var)
         s = self.entry.get()
         while not self.is_rational(s):
-            self.instruction.config(text='Неправильный формат, попробуйте ещё раз')
+            self.instruction.config(
+                text='Неправильный формат, попробуйте ещё раз')
             self.enter_button.wait_variable(self.var)
             s = self.entry.get()
         return Rational(s)
 
     def is_polynome(self, n):
         """Проверка на полином. Малых Андрей"""
-        return True
+        if not re.search(r'\w+\s+\w+', n):
+            n = n.replace(' ', '')
+            n = n.replace('-', '+-').split('+')
+            n = [i for i in n if i]
+            pattern = re.compile(
+                r'^-?(((\d*|(\d+/[1-9]+))((x\^\d+$)|(x$)))|(((\d+)|(\d+/[1-9]+))$))')
+            if n:
+                degs = []
+                for i in n:
+                    res = re.fullmatch(pattern, i)
+                    if not (res and n):
+                        return False
+                    f = i.split('x')
+                    if len(f) != 2:
+                        f.append(0)
+                    elif not f[1]:
+                        f[1] = 1
+                    else:
+                        f[1] = int(f[1][1:].strip())
+                    degs.append(f[1])
+
+                # Проверка, что степени в строгом монотонно убывающем порядке
+                for i in range(len(degs) - 1):
+                    if degs[i] <= degs[i + 1]:
+                        return False
+                return True
+        return False
 
     def get_polynome(self):
         """Ввод полинома. Смирнов Иван"""
@@ -127,7 +160,8 @@ class Main(Frame):
         self.enter_button.wait_variable(self.var)
         s = self.entry.get()
         while not self.is_rational(s):
-            self.instruction.config(text='Неправильный формат, попробуйте ещё раз')
+            self.instruction.config(
+                text='Неправильный формат, попробуйте ещё раз')
             self.enter_button.wait_variable(self.var)
             s = self.entry.get()
         return Rational(s)
@@ -153,7 +187,8 @@ class Main(Frame):
             button["state"] = "normal"
         result = str(f(*arguments))
         arguments = [str(i) for i in arguments]
-        self.instruction.config(text=name + '(' + ', '.join(arguments) + ') = ' + result, wraplength=600)
+        self.instruction.config(
+            text=name + '(' + ', '.join(arguments) + ') = ' + result, wraplength=600)
 
 
 if __name__ == '__main__':
