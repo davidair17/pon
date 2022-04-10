@@ -245,7 +245,8 @@ def MOD_PP_P(poly1, divider):
     """Остаток от деления полинома на полином. Глушков Арсений"""
 
     if DEG_P_N(poly1) >= DEG_P_N(divider):
-        res_poly = SUB_PP_P(poly1, MUL_PP_P(DIV_PP_P(poly1, divider), divider))
+        sf = Polynome(str(poly1))
+        res_poly = SUB_PP_P(sf, MUL_PP_P(DIV_PP_P(poly1, divider), divider))
     else:
         res_poly = Polynome(str(poly1))
     return res_poly
@@ -259,5 +260,6 @@ if __name__ == '__main__':
     print(b)
     print(MUL_PP_P(a, b))
     print(DIV_PP_P(a, b))
+    print(MOD_PP_P(a, b))
     print(a)
     print(b)
