@@ -21,6 +21,8 @@ def ABS_Z_N(z):
     """Возвращает абсолютное значение числа(модуль). Максимов Матвей"""
     nat = Natural("")
     nat.A = z.A
+    nat.n = z.n
+
     return nat
 
 
@@ -64,55 +66,56 @@ def POZ_Z_D(z):
 
 def DIV_ZZ_Z(a1, b1):
     """Частное от деления целого на целое (делитель отличен от нуля).Ташимбетов Тимур"""
-    a = Integer(str(a1))
-    b = Integer(str(b1))
-    if (POZ_Z_D(a) == 2) and (POZ_Z_D(b) == 2):  # если оба числа положительные
-        if a > b:
-            c = DIV_NN_N(a, b)
-        if a < b:
-            c = 0
-        if a == b:
-            c = 1
-    # если первое число положительное, а второе отрицательное
-    if (POZ_Z_D(a) == 2) and (POZ_Z_D(b) == 1):
-        am = ABS_Z_N(a)
-        bm = ABS_Z_N(b)
-        if am < bm:
-            c = 0
-        if am == bm:
-            c = 1
-        if am > bm:
-            cp = DIV_NN_N(a, b)
-            if MUL_ZZ_Z(cp, bm) == am:
-                c = cp
-            c = MUL_ZZ_Z(c, -1)
-    if (POZ_Z_D(a) == 1) and (POZ_Z_D(b) == 2):  # если первое отрицательное, а второе положительное
-        am = ABS_Z_N(a)
-        bm = ABS_Z_N(b)
-        if am < bm:
-            c = 0
-        if am == bm:
-            c = 1
-        if am > bm:
-            cp = DIV_NN_N(a, b)
-            if MUL_ZZ_Z(cp, bm) == am:
-                c = cp
-            c = ADD_1N_N(c)
-            c = MUL_ZZ_Z(c, -1)
-    if (POZ_Z_D(a) == 1) and (POZ_Z_D(b) == 1):  # если оба числа отрицательные
-        am = ABS_Z_N(a)
-        bm = ABS_Z_N(b)
-        if am < bm:
-            c = 0
-        if am == bm:
-            c = 1
-        if am > bm:
-            cp = DIV_NN_N(a, b)
-            if MUL_ZZ_Z(cp, bm) == am:
-                c = cp
-            c = ADD_1N_N(c)
-    if (POZ_Z_D(a) == 0) and (POZ_Z_D(b) == 1) or (POZ_Z_D(b) == 2):  # если первое число 0
-        c = 0
+    k = Integer(str(a1))
+    l = Integer(str(b1))
+    a = TRANS_Z_N(k)
+    b = TRANS_Z_N(l)
+    c = Integer("0")
+    if (POZ_Z_D(k) == 2) and (POZ_Z_D(l) == 2):  # если оба числа положительные
+        if COM_NN_D(a,b) == 2:
+            c = TRANS_N_Z(DIV_NN_N(a, b))
+
+        if COM_NN_D(a,b) == 0:
+            c = TRANS_N_Z(ADD_1N_N(c))
+
+    if (POZ_Z_D(k) == 2) and (POZ_Z_D(l) == 1):      # если первое число положительное, а второе отрицательное
+
+        t = ABS_Z_N(a)
+        y = ABS_Z_N(b)
+
+        if COM_NN_D(a,b) == 0:
+            c = TRANS_N_Z(ADD_1N_N(c))
+        if COM_NN_D(a,b) == 2:
+            c = MUL_ZM_Z(TRANS_N_Z(DIV_NN_N(t, y)))
+
+    if ((POZ_Z_D(k) == 1) and (POZ_Z_D(l) == 2)):  # если первое отрицательное, а второе положительное
+        t = ABS_Z_N(k)
+        y = ABS_Z_N(b)
+
+        if COM_NN_D(a, b) == 0:
+            c = TRANS_N_Z(ADD_1N_N(c))
+        if COM_NN_D(a, b) == 2:
+            div = (DIV_NN_N(t, y))
+            h = MUL_NN_N(div,y)
+            if COM_NN_D(t,h) == 0:
+                c = MUL_ZM_Z(TRANS_N_Z(div))
+            else:
+                c = MUL_ZM_Z(TRANS_N_Z(ADD_1N_N(div)))
+
+    if ((POZ_Z_D(k) == 1) and (POZ_Z_D(l) == 1)):  # если оба числа отрицательные
+        t = ABS_Z_N(a)
+        y = ABS_Z_N(b)
+
+        if COM_NN_D(a, b) == 0:
+            c = TRANS_N_Z(ADD_1N_N(c))
+        if COM_NN_D(a, b) == 2:
+            div = (DIV_NN_N(t, y))
+            h = MUL_NN_N(div, y)
+            if COM_NN_D(t, h) == 0:
+                c = (TRANS_N_Z(div))
+            else:
+                c = TRANS_N_Z(ADD_1N_N(DIV_NN_N(t, y)))
+
     return c
 
 
@@ -197,11 +200,4 @@ def MOD_ZZ_Z(a, b):
 if __name__ == '__main__':
     z = Integer("-4")
     nat = Natural("6")
-    print(z, nat)
-    print(z)
-    print(POZ_Z_D(z))
-    print(ABS_Z_N(z))
-    print(MUL_ZM_Z(z))
-    print(TRANS_N_Z(nat))
-    print(TRANS_N_Z(z))
-    print(z, nat)
+    print(DIV_ZZ_Z(-1404,26))
