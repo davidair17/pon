@@ -153,7 +153,7 @@ def FAC_P_Q(a):
     nod = GCF_NN_N(a[0], a[1])
     for i in range(3, len(a)):
         nod = GCF_NN_N(nod, a[i])
-    b = [ABS_Z_N(j.denom) for j in b.C if str(j.denom) != '0']
+    b = [ABS_Z_N(j.denom) for j in a.C if str(j.denom) != '0']
     if len(b) < 2:
         return b[0]
     elif len(b) == 2:
