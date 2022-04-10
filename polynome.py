@@ -223,23 +223,21 @@ def MUL_PP_P(poly1, poly2):
 
     return res_poly
 
-def DIV_PP_P(poly1, divider):
+def DIV_PP_P(poly1, poly2):
     """Частное от деления полинома на полином. Глушков Арсений"""
-
+    r = Polynome(str(poly1))
     n = DEG_P_N(poly1)
-    m = DEG_P_N(divider)
+    m = DEG_P_N(poly2)
     if n < m:
         q = Polynome("1")
     else:
-        r = Polynome()
-        r.m = poly1.m
-        r.C = poly1.C
         q = Polynome("0")
         q = MUL_Pxk_P(q, n - m)
-        cde = LED_P_Q(divider)
-        for i in range(DEG_P_N(poly1) - DEG_P_N(divider) + 1):
+        cde = LED_P_Q(poly2)
+        for i in range(DEG_P_N(poly1) - DEG_P_N(poly2) + 1):
             temp = DIV_QQ_Q(LED_P_Q(r), cde)
             q.C[i] = temp
+            divider = Polynome(str(poly2))
             r = SUB_PP_P(r, MUL_PQ_P(MUL_Pxk_P(divider, n - m - i), temp))
     return q
 
@@ -249,17 +247,17 @@ def MOD_PP_P(poly1, divider):
     if DEG_P_N(poly1) >= DEG_P_N(divider):
         res_poly = SUB_PP_P(poly1, MUL_PP_P(DIV_PP_P(poly1, divider), divider))
     else:
-        res_poly = Polynome()
-        res_poly.m = poly1.m
-        res_poly.C = poly1.C
+        res_poly = Polynome(str(poly1))
     return res_poly
 
 
 if __name__ == '__main__':
-    a = Polynome("9/7x^4 + 15/3x^3-12/5x^2-9x + 3")
-    b = Polynome("3/2x^2 -13/27x -5/3")
+    a = Polynome("9x^4 + 53x^3-12x^2-9x + 3")
+    b = Polynome("3x^2 -27x -3")
     # k = int(input())
     print(a)
     print(b)
     print(MUL_PP_P(a, b))
-    print(FAC_P_Q(b))
+    print(DIV_PP_P(a, b))
+    print(a)
+    print(b)
