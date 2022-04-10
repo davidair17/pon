@@ -93,8 +93,9 @@ def DEG_P_N(polynome):
     return polynome.m
 
 
-def MUL_Pxk_P(poly1, k):
+def MUL_Pxk_P(poly, k):
     """Умножение полинома на x^k. Угрюмов Михаил."""
+    poly1 = Polynome(str(poly))
     poly1.m = poly1.m + k
     for i in range(k):
         poly1.C.append(Rational("0/1"))
@@ -155,7 +156,7 @@ def FAC_P_Q(a):
     if len(a) < 2:
         return a[0]
     elif len(a) == 2:
-        return (GCF_NN_N(a[0], a[1]))
+        return GCF_NN_N(a[0], a[1])
     nod = GCF_NN_N(a[0], a[1])
     for i in range(3, len(a)):
         nod = GCF_NN_N(nod, a[i])
@@ -163,7 +164,7 @@ def FAC_P_Q(a):
     if len(b) < 2:
         return b[0]
     elif len(b) == 2:
-        return (LCM_NN_N(b[0], b[1]))
+        return LCM_NN_N(b[0], b[1])
     nok = LCM_NN_N(b[0], b[1])
     for j in range(3, len(a)):
         nok = LCM_NN_N(nok, b[i])

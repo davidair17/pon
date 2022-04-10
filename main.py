@@ -43,6 +43,7 @@ class Main(Frame):
                        width=12, command=lambda: self.var.set(1))
         enter.grid(row=2, column=3, padx=(5, 5), pady=(5, 5))
         self.enter_button = enter
+        self.enter_button["state"] = 'disable'
 
         message = StringVar()
         entry = Entry(textvariable=message, font=("Roboto", 14), width=45)
@@ -167,6 +168,21 @@ class Main(Frame):
             s = self.entry.get()
         return Polynome(s)
 
+    def is_digital(self, n):
+        """Проверка на цифру. Смирнов Иван"""
+        return len(n) == 1 and n.isdigit()
+
+    def get_digital(self):
+        """Ввод цифры. Смирнов Иван"""
+        self.instruction.config(text='Введите цифру')
+        self.enter_button.wait_variable(self.var)
+        s = self.entry.get()
+        while not self.is_digital(s):
+            self.instruction.config(text='Неправильный формат, попробуйте ещё раз')
+            self.enter_button.wait_variable(self.var)
+            s = self.entry.get()
+        return int(s)
+
     def calculate(self, name):
         """Вычисление результат выбранной функции. Смирнов Иван"""
         f = eval(name)
@@ -174,6 +190,7 @@ class Main(Frame):
             button["state"] = "disable"
         for button in self.mode_buttons:
             button["state"] = "disable"
+        self.enter_button["state"] = 'normal'
         arguments = []
         for i in name.split('_')[1]:
             if i == 'N':
@@ -184,6 +201,11 @@ class Main(Frame):
                 arguments.append(self.get_rational())
             elif i == 'P':
                 arguments.append(self.get_polynome())
+            elif i == 'D':
+                arguments.append(self.get_digital())
+            elif i == 'k':
+                arguments.append(int(str(self.get_natural())))
+            self.entry.delete(0, END)
         for button in self.mode_buttons:
             button["state"] = "normal"
         for button in self.all_buttons:
@@ -196,6 +218,7 @@ class Main(Frame):
             arguments = [str(i) for i in arguments]
             self.instruction.config(
                 text=name + '(' + ', '.join(arguments) + ') = ' + result, wraplength=600)
+        self.enter_button["state"] = 'disable'
 
 
 if __name__ == '__main__':
