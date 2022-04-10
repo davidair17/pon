@@ -93,7 +93,7 @@ def DIV_ZZ_Z(a1, b1):
         y = ABS_Z_N(b)
 
         if COM_NN_D(a, b) == 0:
-            c = TRANS_N_Z(ADD_1N_N(c))
+            c = MUL_ZM_Z(TRANS_N_Z(ADD_1N_N(c)))
         if COM_NN_D(a, b) == 2:
             div = (DIV_NN_N(t, y))
             h = MUL_NN_N(div,y)
