@@ -20,7 +20,7 @@ class Integer:
 def ABS_Z_N(z):
     """Возвращает абсолютное значение числа(модуль). Максимов Матвей"""
     nat = Natural("")
-    nat.A = z.A
+    nat.A = z.A.copy()
     nat.n = z.n
 
     return nat
@@ -40,7 +40,7 @@ def TRANS_N_Z(nat):
     """Преобразует натуральное число в целое. Максимов Матвей"""
     z = Integer("")
     z.b = 0
-    z.A = nat.A
+    z.A = nat.A.copy()
     z.n = nat.n
     return z
 
