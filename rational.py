@@ -55,7 +55,7 @@ def DIV_QQ_Q(a1, b1):
         print("moron")
     a.numer = MUL_ZZ_Z(a.numer, b.denom)
     a.denom = MUL_NN_N(a.denom, b.numer)
-    return a
+    return RED_Q_Q(a)
 
 
 def RED_Q_Q(a1):
