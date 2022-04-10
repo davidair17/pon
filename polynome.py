@@ -116,8 +116,10 @@ def DER_P_P(poly1):
     return poly1
 
 
-def ADD_PP_P(poly1, poly2):
+def ADD_PP_P(poly11, poly22):
     """Сложение многочленов. Малых Андрей"""
+    poly1 = Polynome(str(poly11))
+    poly2 = Polynome(str(poly22))
     if DEG_P_N(poly1) < DEG_P_N(poly2):
         poly1, poly2 = poly2, poly1
     for i in range(DEG_P_N(poly2) + 1):
