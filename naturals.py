@@ -214,6 +214,7 @@ def SUB_NDN_N(a1, D, b1):
     elif com == 1:
         a = MUL_ND_N(a, D)
         d = SUB_NN_N(a, b)
+    return d
 
 
 def MOD_NN_N(a1, b1):
