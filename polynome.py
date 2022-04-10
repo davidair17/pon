@@ -44,6 +44,10 @@ class Polynome:
             self.C.pop(0)
         self.m = len(self.C) - 1
 
+    def redCoeff(self):
+        """Сокращение коэффициентов многочлена. Малых Андрей"""
+        self.C = [RED_Q_Q(i) for i in self.C]
+
     def __str__(self):
         """Возвращает строковое представление многочлена. Малых Андрей."""
 
@@ -68,13 +72,13 @@ class Polynome:
 
         for i in range(self.m, -1, -1):
             j = self.m - i  # Номер коэффициента
-            koeff = self.C[j]  # Вид коэффициента при выводе
+            coeff = self.C[j]  # Вид коэффициента при выводе
 
-            if koeff.numer.A == [1] and koeff.denom.A == [1] and i != 0:
-                koeff = '-' if koeff.numer.b else ''
+            if coeff.numer.A == [1] and coeff.denom.A == [1] and i != 0:
+                coeff = '-' if coeff.numer.b else ''
 
             if self.C[j].numer.A != [0]:
-                res += sign(koeff) + f'{koeff}{deg(i)}'
+                res += sign(coeff) + f'{coeff}{deg(i)}'
 
         if not res:
             return '0'
@@ -123,10 +127,12 @@ def ADD_PP_P(p1, p2):
 
     if DEG_P_N(poly1) < DEG_P_N(poly2):
         poly1, poly2 = poly2, poly1
+
     deg_delta = DEG_P_N(poly1) - DEG_P_N(poly2)
     for i in range(DEG_P_N(poly2) + 1):
         poly1.C[i + deg_delta] = ADD_QQ_Q(poly1.C[i + deg_delta], poly2.C[i])
     poly1.frontZerosDel()
+    poly1.redCoeff()
     return poly1
 
 
@@ -134,12 +140,17 @@ def SUB_PP_P(p1, p2):
     """Вычитание многочленов. Малых Андрей"""
     poly1 = Polynome(str(p1))
     poly2 = Polynome(str(p2))
+
     if DEG_P_N(poly1) < DEG_P_N(poly2):
         poly1, poly2 = poly2, poly1
+        poly1 = MUL_PQ_P(poly1, "-1")
+        poly2 = MUL_PQ_P(poly2, "-1")
+
     deg_delta = DEG_P_N(poly1) - DEG_P_N(poly2)
     for i in range(DEG_P_N(poly2) + 1):
         poly1.C[i + deg_delta] = SUB_QQ_Q(poly1.C[i + deg_delta], poly2.C[i])
     poly1.frontZerosDel()
+    poly1.redCoeff()
     return poly1
 
 
@@ -179,19 +190,11 @@ def GCF_PP_P(a, b):
     """Нод многочленов. Снятков Илья"""
     a1 = Polynome(str(a))
     b1 = Polynome(str(b))
-
-    if (DEG_P_N(a1) > DEG_P_N(b1)) or (DEG_P_N(a1) == DEG_P_N(b1)):
-        while b1 != 0:
-            temp = b
-            b1 = MOD_PP_P(a1, b1)
-            a1 = temp
-        return a1
-    else:
-        while a1 != 0:
-            temp = a1
-            a1 = MOD_PP_P(b1, a1)
-            b1 = temp
-        return b1
+    while DEG_P_N(b1) != 0:
+        temp = b1
+        b1 = MOD_PP_P(a1, b1)
+        a1 = temp
+    return a1
 
 
 def NMR_P_P(poly1):
