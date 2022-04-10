@@ -145,21 +145,22 @@ def MUL_PQ_P(polynome, num):
 
 def FAC_P_Q(a):
     """Вынесение из многочлена НОК знаменателей коэффициентов и НОД числителей.Максимов Матвей"""
-    a = [ABS_Z_N(i.numer) for i in a.C if str(i.numer) != '0']
+    pol=a
+    a = [ABS_Z_N(i.numer) for i in pol.C if str(i.numer) != '0']
     if len(a) < 2:
         return a[0]
     elif len(a) == 2:
         return (GCF_NN_N(a[0], a[1]))
     nod = GCF_NN_N(a[0], a[1])
-    for i in range(3, len(a)):
+    for i in range(2, len(a)):
         nod = GCF_NN_N(nod, a[i])
-    b = [ABS_Z_N(j.denom) for j in a.C if str(j.denom) != '0']
+    b = [ABS_Z_N(j.denom) for j in pol.C if str(j.denom) != '0']
     if len(b) < 2:
         return b[0]
     elif len(b) == 2:
         return (LCM_NN_N(b[0], b[1]))
     nok = LCM_NN_N(b[0], b[1])
-    for j in range(3, len(a)):
+    for i in range(2, len(a)):
         nok = LCM_NN_N(nok, b[i])
     q = Rational(str(Rational(str(nod))) + '/' + str(Natural(str(nok))))
     return q
@@ -255,9 +256,10 @@ def MOD_PP_P(poly1, divider):
 
 
 if __name__ == '__main__':
-    a = Polynome("9x^4 + 15x^3-12x^2-8x + 1")
-    b = Polynome("3x^2 -13x -5")
+    a = Polynome("9/7x^4 + 15/3x^3-12/5x^2-9x + 3")
+    b = Polynome("3/2x^2 -13/27x -5/3")
     # k = int(input())
     print(a)
     print(b)
     print(MUL_PP_P(a, b))
+    print(FAC_P_Q(b))
