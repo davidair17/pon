@@ -1,4 +1,5 @@
 from rational import *
+from copy import copy
 
 
 class Polynome:
@@ -37,6 +38,12 @@ class Polynome:
             if i in degs:
                 self.C[self.m - i] = Rational(koeffs[j])
                 j += 1
+
+    def __copy__(self):
+        a = type(self)()
+        a.C = self.C.copy()
+        a.m = self.m
+        return a
 
     def frontZerosDel(self):
         """Удаление нулевых коэффициентов перед старшим членом. Малых Андрей"""
@@ -99,7 +106,7 @@ def DEG_P_N(polynome):
 
 def MUL_Pxk_P(poly, k):
     """Умножение полинома на x^k. Угрюмов Михаил."""
-    poly1 = Polynome(str(poly))
+    poly1 = copy(poly)
     poly1.m = poly1.m + k
     for i in range(k):
         poly1.C.append(Rational("0/1"))
@@ -122,8 +129,8 @@ def DER_P_P(poly1):
 
 def ADD_PP_P(p1, p2):
     """Сложение многочленов. Малых Андрей"""
-    poly1 = Polynome(str(p1))
-    poly2 = Polynome(str(p2))
+    poly1 = copy(p1)
+    poly2 = copy(p2)
 
     if DEG_P_N(poly1) < DEG_P_N(poly2):
         poly1, poly2 = poly2, poly1
@@ -138,8 +145,8 @@ def ADD_PP_P(p1, p2):
 
 def SUB_PP_P(p1, p2):
     """Вычитание многочленов. Малых Андрей"""
-    poly1 = Polynome(str(p1))
-    poly2 = Polynome(str(p2))
+    poly1 = copy(p1)
+    poly2 = copy(p2)
 
     if DEG_P_N(poly1) < DEG_P_N(poly2):
         poly1, poly2 = poly2, poly1
@@ -156,7 +163,7 @@ def SUB_PP_P(p1, p2):
 
 def MUL_PQ_P(polynome1, num1):
     """Умножение многочлена на число. Малых Андрей"""
-    polynome = Polynome(str(polynome1))
+    polynome = copy(polynome1)
     num = Rational(str(num1))
     for i in range(DEG_P_N(polynome) + 1):
         polynome.C[i] = MUL_QQ_Q(polynome.C[i], num)
@@ -166,7 +173,7 @@ def MUL_PQ_P(polynome1, num1):
 
 def FAC_P_Q(a):
     """Вынесение из многочлена НОК знаменателей коэффициентов и НОД числителей.Максимов Матвей"""
-    pol=a
+    pol = a
     a = [ABS_Z_N(i.numer) for i in pol.C if str(i.numer) != '0']
     if len(a) < 2:
         return a[0]
@@ -189,8 +196,8 @@ def FAC_P_Q(a):
 
 def GCF_PP_P(a, b):
     """Нод многочленов. Снятков Илья"""
-    a1 = Polynome(str(a))
-    b1 = Polynome(str(b))
+    a1 = copy(a)
+    b1 = copy(b)
     while DEG_P_N(b1) != 0:
         temp = b1
         b1 = MOD_PP_P(a1, b1)
@@ -242,7 +249,7 @@ def MUL_PP_P(poly1, poly2):
 
 def DIV_PP_P(poly1, poly2):
     """Частное от деления полинома на полином. Глушков Арсений"""
-    r = Polynome(str(poly1))
+    r = copy(poly1)
     n = DEG_P_N(poly1)
     m = DEG_P_N(poly2)
     if n < m:
