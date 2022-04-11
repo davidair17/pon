@@ -261,7 +261,7 @@ def DIV_PP_P(poly1, poly2):
         for i in range(DEG_P_N(poly1) - DEG_P_N(poly2) + 1):
             temp = DIV_QQ_Q(LED_P_Q(r), cde)
             q.C[i] = temp
-            divider = Polynome(str(poly2))
+            divider = copy(poly2)
             r = SUB_PP_P(r, MUL_PQ_P(MUL_Pxk_P(divider, n - m - i), temp))
     return q
 
@@ -270,7 +270,7 @@ def MOD_PP_P(poly1, divider):
     """Остаток от деления полинома на полином. Глушков Арсений"""
 
     if DEG_P_N(poly1) >= DEG_P_N(divider):
-        sf = Polynome(str(poly1))
+        sf = copy(poly1)
         res_poly = SUB_PP_P(sf, MUL_PP_P(DIV_PP_P(poly1, divider), divider))
     else:
         res_poly = Polynome(str(poly1))

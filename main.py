@@ -39,8 +39,7 @@ class Main(Frame):
         self.instruction = label
 
         self.var = IntVar()
-        enter = Button(text='Ввод', font=("Roboto", 14),
-                       width=12, command=lambda: self.var.set(1))
+        enter = Button(text='Ввод', font=("Roboto", 14), width=12, command=lambda: self.var.set(1))
         enter.grid(row=2, column=3, padx=(5, 5), pady=(5, 5))
         self.enter_button = enter
         self.enter_button["state"] = 'disable'
