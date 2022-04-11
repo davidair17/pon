@@ -29,13 +29,13 @@ def INT_Q_B(a1):
 
 def TRANS_Q_Z(a):
     """Преобразование дробного в целое(если знаменатель равен 1). Щелочкова Екатерина."""
-    return a.numer.copy()
+    return Integer(str(a.numer))
 
 
-def TRANS_Z_Q(с):
+def TRANS_Z_Q(c):
     """Преобразование целого в дробное. Щелочкова Екатерина."""
     a = Rational("1/1")
-    a.numer = с.copy()
+    a.numer = Integer(str(c))
     return a
 
 

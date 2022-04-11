@@ -217,9 +217,14 @@ class Main(Frame):
             button["state"] = "normal"
         for button in self.all_buttons:
             button["state"] = "normal"
-        if name == 'SUB_NN_N' and int(str(arguments[0])) < int(str(arguments[1])):
-            self.instruction.config(
-                text='Первое число должно быть >= второго, операция отменена')
+        if name in ('SUB_NN_N', 'DIV_NN_Dk', 'DIV_NN_N', 'MOD_NN_N') and int(str(arguments[0])) < int(str(arguments[1])):
+            self.instruction.config(text='Первое число должно быть >= второго, операция отменена')
+        elif name == 'TRANS_Z_N' and int(str(arguments[0])) < 0:
+            self.instruction.config(text='Число должно быть отрицательным, операция отменена')
+        elif name in ('DIV_ZZ_Z', 'MOD_ZZ_Z', 'DIV_QQ_Q') and str(arguments[1]) == '0':
+            self.instruction.config(text='Делить должен быть отличен от нуля, операция отменена')
+        elif name == 'TRANS_Q_Z' and int(str(arguments[0].denom)) != 1:
+            self.instruction.config(text='Знаменатель должен быть равен 1, операция отменена')
         else:
             result = str(f(*arguments))
             arguments = [str(i) for i in arguments]
