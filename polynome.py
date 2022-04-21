@@ -215,7 +215,7 @@ def NMR_P_P(poly1):
     # Делим многочлен на значеие НОД и возвращаем результат
     res = DIV_PP_P(poly1, gcf)
     res = MUL_PQ_P(res, fac)
-    return Polynome(res)
+    return res
 
 
 def MUL_PP_P(poly1, poly2):
