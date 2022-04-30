@@ -113,8 +113,9 @@ def MUL_Pxk_P(poly, k):
     return poly1
 
 
-def DER_P_P(poly1):
+def DER_P_P(poly2):
     """Производная многочлена. Николаев Клим."""
+    poly1 = copy(poly2)
     if poly1.m == 0:
         poly1.C[0] = 0
     elif poly1.m > 0:
@@ -172,7 +173,7 @@ def MUL_PQ_P(polynome1, num1):
 
 
 def FAC_P_Q(a):
-    """Вынесение из многочлена НОК знаменателей коэффициентов и НОД числителей.Максимов Матвей"""
+    """Вынесение из многочлена НОК знаменателей коэффициентов и НОД числителей. Максимов Матвей"""
     pol = a
     a = [ABS_Z_N(i.numer) for i in pol.C if str(i.numer) != '0']
     if len(a) < 2:
