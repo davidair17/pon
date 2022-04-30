@@ -231,18 +231,21 @@ def MUL_NN_N(a1, b1):
     b = Natural(str(b1))
     if str(a) != '0' and str(b) != '0':
         a.A.reverse()
-        res = Natural('0')
+        res = Natural('0')  # Переменная хранящая результат умножения
         tens = 0
         for j in range(a.n):
+            # Каждую ЦИФРУ числа a умножаем на ЧИСЛО b (начинаем с последней цифры числа
             if a.A[j] == 0:
-                tens += 1
+                tens += 1  # Итерация прошла, однако цифра равна нулю
             else:
                 multiplier = a.A[j]
                 b_copy = Natural(str(b))
-                temp1 = MUL_ND_N(b_copy, multiplier)
+                temp1 = MUL_ND_N(b_copy, multiplier)  # Произведение цифры на число
                 temp2 = MUL_Nk_N(temp1, tens)
-                res = ADD_NN_N(temp2, res)
-                tens += 1
+                # Каждое произведение умножается на 10 в степени кол-во итераций до этого (переменная tens)
+
+                res = ADD_NN_N(temp2, res)  # Добавление умножения в общий результат
+                tens += 1  # Кол-во умножений (итераций)
         a.A.reverse()
         return res
     else:
