@@ -119,7 +119,7 @@ def DER_P_P(poly2):
     polynome = copy(poly1)
     # если степень многочлена 0(то есть максимальная степень равна 0 - например 5*x^0)
     if polynome.m == 0:
-        #Возвращаем многочлен с единственым элементом 0
+        # Возвращаем многочлен с единственым элементом 0
         polynome.C[0] = 0
     # если степень многочлена больше 0
     elif polynome.m > 0:
@@ -144,13 +144,22 @@ def ADD_PP_P(p1, p2):
     poly1 = copy(p1)
     poly2 = copy(p2)
 
+    # Многочлен poly1 должен иметь степень >= степени poly2
+    # Если степень poly2 > степени poly1, то меняем их местами
     if DEG_P_N(poly1) < DEG_P_N(poly2):
         poly1, poly2 = poly2, poly1
 
+    # Находим разницу между степенями многочленов
     deg_delta = DEG_P_N(poly1) - DEG_P_N(poly2)
+
+    # Вычитаем из коэффициентов poly1 коэффициенты poly2 при тех же степенях
     for i in range(DEG_P_N(poly2) + 1):
         poly1.C[i + deg_delta] = ADD_QQ_Q(poly1.C[i + deg_delta], poly2.C[i])
+
+    # Удаляем нулевые коэффициенты, стоящие перед старшим коэффициентом
     poly1.frontZerosDel()
+
+    # Сокращаем коэффициенты
     poly1.redCoeff()
     return poly1
 
@@ -160,15 +169,25 @@ def SUB_PP_P(p1, p2):
     poly1 = copy(p1)
     poly2 = copy(p2)
 
+    # Многочлен poly1 должен иметь степень >= степени poly2
+    # Если степень poly2 > степени poly1, то меняем их
+    # местами и умножаем на -1 для правильного результата вычитания
     if DEG_P_N(poly1) < DEG_P_N(poly2):
         poly1, poly2 = poly2, poly1
         poly1 = MUL_PQ_P(poly1, "-1")
         poly2 = MUL_PQ_P(poly2, "-1")
 
+    # Находим разницу между степенями многочленов
     deg_delta = DEG_P_N(poly1) - DEG_P_N(poly2)
+
+    # Вычитаем из коэффициентов poly1 коэффициенты при тех же степенях poly2
     for i in range(DEG_P_N(poly2) + 1):
         poly1.C[i + deg_delta] = SUB_QQ_Q(poly1.C[i + deg_delta], poly2.C[i])
+
+    # Удаляем нулевые коэффициенты, стоящие перед старшим коэффициентом
     poly1.frontZerosDel()
+
+    # Сокращаем коэффициенты
     poly1.redCoeff()
     return poly1
 
@@ -177,8 +196,12 @@ def MUL_PQ_P(polynome1, num1):
     """Умножение многочлена на число. Малых Андрей"""
     polynome = copy(polynome1)
     num = Rational(str(num1))
+
+    # Умножаем все коэффициенты на заданное число
     for i in range(DEG_P_N(polynome) + 1):
         polynome.C[i] = MUL_QQ_Q(polynome.C[i], num)
+
+    # Удаляем нулевые коэффициенты, стоящие перед старшим коэффициентом
     polynome.frontZerosDel()
     return polynome
 

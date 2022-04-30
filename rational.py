@@ -71,43 +71,55 @@ def RED_Q_Q(a1):
 
 
 def ADD_QQ_Q(a1, b1):
-    """Сложение дробей. Абдулаев Алексей"""
+    """Сложение дробей. Малых Андрей"""
     a = Rational(str(a1))
     b = Rational(str(b1))
-    LCdenom = LCM_NN_N(a.denom, b.denom)  # Общий знаменатель
 
-    # Числители чисел после приведение к общему знаменателю
+    # Находим общий знаменатель как НОК знаменателей чисел
+    LCdenom = LCM_NN_N(a.denom, b.denom)
+
+    # Домнажаем числители чисел на отношение общего знаменателя к изначальному
     new_a = MUL_ZZ_Z(TRANS_N_Z(DIV_NN_N(LCdenom, a.denom)), a.numer)
     new_b = MUL_ZZ_Z(TRANS_N_Z(DIV_NN_N(LCdenom, b.denom)), b.numer)
 
+    # Записываем итоговые числитель и знаменатель
     a.numer = ADD_ZZ_Z(new_a, new_b)
     a.denom = LCdenom
+
+    # Возвращаем сокращенную дробь
     return RED_Q_Q(a)
 
 
 def SUB_QQ_Q(a1, b1):
-    """Вычитание дробей. Абдулаев Алексей"""
+    """Вычитание дробей. Малых Андрей"""
     a = Rational(str(a1))
     b = Rational(str(b1))
-    LCdenom = LCM_NN_N(a.denom, b.denom)  # Общий знаменатель
 
-    # Числители чисел после приведение к общему знаменателю
+    # Находим общий знаменатель как НОК знаменателей чисел
+    LCdenom = LCM_NN_N(a.denom, b.denom)
+
+    # Домнажаем числители чисел на отношение общего знаменателя к изначальному
     new_a = MUL_ZZ_Z(TRANS_N_Z(DIV_NN_N(LCdenom, a.denom)), a.numer)
     new_b = MUL_ZZ_Z(TRANS_N_Z(DIV_NN_N(LCdenom, b.denom)), b.numer)
 
+    # Записываем итоговые числитель и знаменатель
     a.numer = SUB_ZZ_Z(new_a, new_b)
     a.denom = LCdenom
+
+    # Возвращаем сокращенную дробь
     return RED_Q_Q(a)
 
 
 def MUL_QQ_Q(a1, b1):
-    """Умножение дробей. Абдулаев Алексей"""
+    """Умножение дробей. Малых Андрей"""
     a = Rational(str(a1))
     b = Rational(str(b1))
-    num1 = MUL_ZZ_Z(a.numer, b.numer)
-    num2 = MUL_NN_N(a.denom, b.denom)
-    a.numer = num1
-    a.denom = num2
+
+    # Перемножаем числители и знаменатели данных чисел
+    a.numer = MUL_ZZ_Z(a.numer, b.numer)
+    a.denom = MUL_NN_N(a.denom, b.denom)
+
+    # Возвращаем сокращенную дробь
     return RED_Q_Q(a)
 
 
