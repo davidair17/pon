@@ -145,14 +145,14 @@ def ADD_PP_P(p1, p2):
     poly2 = copy(p2)
 
     # Многочлен poly1 должен иметь степень >= степени poly2
-    # Если степень poly2 > степени poly1, то меняем их местами
+    # Если степень poly2 > степени poly1, то меняем многочлены местами
     if DEG_P_N(poly1) < DEG_P_N(poly2):
         poly1, poly2 = poly2, poly1
 
     # Находим разницу между степенями многочленов
     deg_delta = DEG_P_N(poly1) - DEG_P_N(poly2)
 
-    # Вычитаем из коэффициентов poly1 коэффициенты poly2 при тех же степенях
+    # Прибавляем к коэффициентам poly1 коэффициенты poly2 при соответствующих степенях
     for i in range(DEG_P_N(poly2) + 1):
         poly1.C[i + deg_delta] = ADD_QQ_Q(poly1.C[i + deg_delta], poly2.C[i])
 
@@ -170,7 +170,7 @@ def SUB_PP_P(p1, p2):
     poly2 = copy(p2)
 
     # Многочлен poly1 должен иметь степень >= степени poly2
-    # Если степень poly2 > степени poly1, то меняем их
+    # Если степень poly2 > степени poly1, то меняем многочлены
     # местами и умножаем на -1 для правильного результата вычитания
     if DEG_P_N(poly1) < DEG_P_N(poly2):
         poly1, poly2 = poly2, poly1
@@ -180,7 +180,7 @@ def SUB_PP_P(p1, p2):
     # Находим разницу между степенями многочленов
     deg_delta = DEG_P_N(poly1) - DEG_P_N(poly2)
 
-    # Вычитаем из коэффициентов poly1 коэффициенты при тех же степенях poly2
+    # Вычитаем из коэффициентов poly1 коэффициенты при соответствующих степенях poly2
     for i in range(DEG_P_N(poly2) + 1):
         poly1.C[i + deg_delta] = SUB_QQ_Q(poly1.C[i + deg_delta], poly2.C[i])
 
