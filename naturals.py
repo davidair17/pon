@@ -286,33 +286,26 @@ def MOD_NN_N(a1, b1):
 
 def GCF_NN_N(a1, b1):
     """НОД натуральных чисел. Алгоритм Евклида делением. Багмутов Всеволод"""
-    a = Natural(str(a1))
-    b = Natural(str(b1))
-    while NZER_N_B(Natural(str(a))) == True and NZER_N_B(Natural(str(b))) == True:
-        if COM_NN_D(a, b) == 2:
-            a = MOD_NN_N(a, b)
-        else:
-            b = MOD_NN_N(a, b)
-    return ADD_NN_N(a, b)
+    #Это алгоритм Евклида делением
+    a = Natural(str(a1)) #Cоздание копии натурального
+    b = Natural(str(b1)) #Cоздание копии натурального
+    while NZER_N_B(Natural(str(a))) == True and NZER_N_B(Natural(str(b))) == True: #Пока a не равно нулю и b не равно нулю
+        if COM_NN_D(a, b) == 2: #Если a>b
+            a = MOD_NN_N(a, b) #a присваиваем остаток от деления a на b
+        else: #если b>a
+            b = MOD_NN_N(b, a) #b присваиваем остаток от деления b на a
+    return ADD_NN_N(a, b) #Результатом является сумма a и b
 
 
 def LCM_NN_N(a1, b1):
     """НОК натуральных чисел. Багмутов Всеволод"""
-    a = Natural(str(a1))
-    b = Natural(str(b1))
-    if COM_NN_D(a, b) == 2:
-        greatest = a
-    else:
-        greatest = b
-    mult = MUL_NN_N(a, b)
-    gcf = GCF_NN_N(a, b)
-    i = Natural('0')
-    while True:
-        if str(MUL_NN_N(i, gcf)) == str(mult):
-            break
-        else:
-            i = ADD_NN_N(i, greatest)
-    return i
+    # НОК вычисляется по формуле (a*b)/НОД(a,b)
+    a = Natural(str(a1)) #Cоздание копии натурального
+    b = Natural(str(b1)) #Cоздание копии натурального
+    mult = MUL_NN_N(a, b) #Переменная mult - произведение a и b
+    gcf = GCF_NN_N(a, b) #Переменная gcf - НОД a и b
+    LCM = DIV_NN_N(mult,gcf) #Деление mult на gcf, LCM - НОК a и b
+    return LCM
 
 
 def DIV_NN_Dk(a1, b1):
